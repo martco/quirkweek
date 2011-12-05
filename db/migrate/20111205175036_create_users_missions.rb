@@ -9,6 +9,6 @@ class CreateUsersMissions < ActiveRecord::Migration
       t.timestamps
     end
     add_index("users_missions", "user_id")
-    add_index("users_missions", "post_id")
+    add_index("users_missions", "mission_id")
   end
 end
