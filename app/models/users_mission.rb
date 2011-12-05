@@ -8,4 +8,5 @@ class UsersMission < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :mission_id
   
+  validates_presence_of :text
 end

@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :users_missions, :dependent => :destroy,
                             :order => "created_at DESC"
 
-  has_many :missions, :through => :users_missions
+  has_many :missions, :through => :users_missions,
                       :source => :mission
   
   attr_accessor :password

@@ -7,6 +7,7 @@ gem 'thin'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'haml'
 
 
 # Gems used only for assets and not required

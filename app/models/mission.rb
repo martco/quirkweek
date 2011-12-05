@@ -3,7 +3,7 @@ class Mission < ActiveRecord::Base
   has_many :users_missions, :dependent => :destroy,
                             :order => "created_at DESC"
 
-  has_many :users, :through => :users_missions
+  has_many :users, :through => :users_missions,
                    :source => :user
                             
   validates_presence_of :title, :message => "A mission should have a title"
