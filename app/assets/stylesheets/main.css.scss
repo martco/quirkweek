@@ -1,5 +1,18 @@
 @import "mixins";
 
+#wrapper{
+	margin-top:20px;
+}
+
+h1:first-child{
+	margin:40px auto;
+}
+
+#time-left{
+	margin:30px auto;
+	text-align:center;
+}
+
 .text-center{
 	text-align: center;
 }
@@ -42,9 +55,10 @@
 
 .footer{
 	padding-bottom:10px;
-	background-color: #CCC;
+	background-color: #999;
 	
 	p{
 		font-size:1.1em;
+		color:white;
 	}
 }
