@@ -4,6 +4,7 @@ class MissionsController < ApplicationController
     @mission = Mission.first #manually created
     @user = User.first       #manually created
     @quirks = UsersMission.limit(10)
+    @featured_quirk = @quirks.first
   end
   
 end
