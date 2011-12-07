@@ -1,8 +1,9 @@
 class CreateUsersMissions < ActiveRecord::Migration
   def change
     create_table :users_missions do |t|
-      t.integer "user_id", :null => false
+      t.integer "user_id", :null    => false
       t.integer "mission_id", :null => false
+
       t.string "text"
       t.string "location"
       
