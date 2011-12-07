@@ -12,12 +12,11 @@
       / Featured content area
       / Help needed with vertically aligning the text
       .row
-        .bordered-table.text-center{:style => "height:300px;"}
+        %table.bordered-table#featured-table
           %tbody
             %tr
               %td
-                .featured-text
-                  =@featured_quirk.text
+                =@featured_quirk.text
 
       
       / Comment section
@@ -48,18 +47,14 @@
     / This is the left sidebar
     .span-one-third
       #right-sidebar
-        %table
-          %tbody
-            -10.times do
-              %tr
-                %td
-                  Here is something for the sidebar. Lets see how much text fits here and what does the wrap look like.
-              %tr
-                %td
-                  Omg great content submission! You won't believe it when you see it!
-              %tr
-                %td
-                  A user posts a pic that a lot of people like
+        %ul
+          -10.times do
+            %li
+              Here is something for the sidebar. Lets see how much text fits here and what does the wrap look like.
+            %li
+              Omg great content submission! You won't believe it when you see it!
+            %li
+              A user posts a pic that a lot of people like
 
 / Footer
 %footer.footer
