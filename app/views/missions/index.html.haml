@@ -12,11 +12,9 @@
       / Featured content area
       / Help needed with vertically aligning the text
       .row
-        %table.bordered-table#featured-table
-          %tbody
-            %tr
-              %td
-                =@featured_quirk.text
+        %ul#featured-area
+          %li
+            =@featured_quirk.text
 
       
       / Comment section
