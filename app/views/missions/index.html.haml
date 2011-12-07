@@ -1,16 +1,68 @@
-%div
-  Hello Quirkweek!
-  %br
-  We have a user:
-  %strong
-    =@user.name
-  %br
-  We also have a mission with a title:
-  %strong
+#wrapper.container
+  
+  %h1.text-center
     =@mission.title
-  %br
-  =".. and a description:"
-  %strong
-    =@mission.description
-  
-  
+
+  %h3#time-left
+    4 Days, 17 hours, 55 minutes left
+
+  .row  
+    .span-two-thirds
+
+      / Featured content area
+      / Help needed with vertically aligning the text
+      .row
+        .bordered-table.text-center{:style => "height:300px;"}
+          %tbody
+            %tr
+              %td
+                .featured-text
+                  =@featured_quirk.text
+
+      
+      / Comment section
+      .row.comment-section
+      
+        %textarea{:style => "width:400px;" }
+          Temporary textarea placed here..
+        -5.times do
+          .comment
+            .comment-text
+              This is a random visitor comment. He looks around, likes the quirks, watches the content and giggles.
+            .comment-user-time
+              Mark - 25 minutes ago
+      
+          .comment
+            .comment-text
+              Another visitor submission. This is a shorter one.
+            .comment-user-time
+              Clara - less than an hour ago
+
+          .comment
+            .comment-text
+              This visitor sp33ks 1337. And he can talk and talk. And talk and talk. He describes his emotions in detail - paying attention to everything.
+            .comment-user-time
+              Anthony - 2 hours ago
+
+
+    / This is the left sidebar
+    .span-one-third
+      #left-sidebar
+        %table
+          %tbody
+            -10.times do
+              %tr
+                %td
+                  Here is something for the sidebar. Lets see how much text fits here and what does the wrap look like.
+              %tr
+                %td
+                  Omg great content submission! You won't believe it when you see it!
+              %tr
+                %td
+                  A user posts a pic that a lot of people like
+
+/ Footer
+%footer.footer
+  .container
+    %p
+      Copyright RoflCopter

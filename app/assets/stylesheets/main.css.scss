@@ -1,0 +1,64 @@
+@import "mixins";
+
+#wrapper{
+	margin-top:20px;
+}
+
+h1:first-child{
+	margin:40px auto;
+}
+
+#time-left{
+	margin:30px auto;
+	text-align:center;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.featured-text{
+	margin-top:120px;  //this to be removed when vertical alignment is solved
+	font-size:3em;
+}
+
+
+//what is the better solution, to 
+.comment-section{
+	padding:15px 15px 0px 15px;
+	height:500px;
+	border: 1px solid #DDD;
+	@include rounded-corners(4px);
+	overflow:scroll;
+}
+
+.comment{
+	margin:15px 0px;
+	
+	.comment-text{
+		font-size:1.1em;
+	}
+	
+	.comment-user-time{
+		font-style:italic;
+	}
+	
+}
+
+#left-sidebar{
+	height:817px;
+	overflow:scroll;
+	border: 1px solid #DDD;
+	@include rounded-corners(4px);
+}
+
+
+.footer{
+	padding-bottom:10px;
+	background-color: #999;
+	
+	p{
+		font-size:1.1em;
+		color:white;
+	}
+}
