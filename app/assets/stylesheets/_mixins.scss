@@ -4,3 +4,9 @@
 	-webkit-border-radius: $radius;
 	border-radius: $radius;
 }
+
+@mixin clean-li{
+	margin:0;
+	padding:0;
+	color:#404040;
+}

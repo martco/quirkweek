@@ -3,6 +3,12 @@
   %h1.text-center
     =@mission.title
 
+  %h5.text-center
+    4 people quirked this week!
+    %br
+    %i
+      Did you?
+
   %h3#time-left
     4 Days, 17 hours, 55 minutes left
 
@@ -12,17 +18,35 @@
       / Featured content area
       / Help needed with vertically aligning the text
       .row
-        %ul#featured-area
+        %ul.featured-area
           %li
             /Lotta text here. Yup, nothing but a lotta text
             =@featured_quirk.text
-
+        
+        .featured-media
+          Text | Image | Video
+          
+        .featured-details
+          .featured-details-left
+            50 likes  &uarr;  &darr;  6  F  T
+          .featured-details-right
+            %ul
+              %li.featured-name
+                =@user.name
+              %li
+                Friday, 11:59 pm CST
+              %li
+                Chicago, Illinois, USA
       
       / Comment section
       .row.comment-section
       
         %textarea{:style => "width:400px;" }
           Temporary textarea placed here..
+          
+        %a.btn{:href => "#", :style => "margin-top:17px;"}
+          Post
+          
         -5.times do
           .comment
             .comment-text
