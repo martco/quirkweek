@@ -46,25 +46,23 @@
           
         %a.btn{:href => "#", :style => "margin-top:17px;"}
           Post
-          
-        -5.times do
-          .comment
-            .comment-text
+        
+        %ul  
+          -5.times do
+            %li
               This is a random visitor comment. He looks around, likes the quirks, watches the content and giggles.
-            .comment-user-time
-              Mark - 25 minutes ago
-      
-          .comment
-            .comment-text
+              .comment-user-time
+                Mark - 25 minutes ago
+                
+            %li
               Another visitor submission. This is a shorter one.
-            .comment-user-time
-              Clara - less than an hour ago
+              .comment-user-time
+                Clara - less than an hour ago
 
-          .comment
-            .comment-text
+            %li
               This visitor sp33ks 1337. And he can talk and talk. And talk and talk. He describes his emotions in detail - paying attention to everything.
-            .comment-user-time
-              Anthony - 2 hours ago
+              .comment-user-time
+                Anthony - 2 hours ago
 
 
     / This is the left sidebar

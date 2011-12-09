@@ -10,3 +10,9 @@
 	padding:0;
 	color:#404040;
 }
+
+@mixin clean-ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+}

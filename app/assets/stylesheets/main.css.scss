@@ -57,7 +57,7 @@ h1:first-child{
 		}
 		
 		ul{
-			list-style:none;
+			@include clean-ul;
 		}
 		li{
 			@include clean-li;
@@ -74,19 +74,20 @@ h1:first-child{
 	@include rounded-corners(4px);
 	overflow-y:scroll;
 	overflow-x:hidden;
-}
-
-.comment{
-	margin:15px 0px;
 	
-	.comment-text{
+	ul{
+		@include clean-ul;
+	}
+	
+	li{
+		@include clean-li;
+		margin:20px 0px;
 		font-size:1.1em;
+		
+		.comment-user-time{
+			font-style:italic;
+		}
 	}
-	
-	.comment-user-time{
-		font-style:italic;
-	}
-	
 }
 
 #right-sidebar{
@@ -97,9 +98,7 @@ h1:first-child{
 	@include rounded-corners(4px);
 
 	ul{
-		list-style:none;
-		margin:0px;
-		padding:0px;
+		@include clean-ul;
 	}
 	li{
 		@include clean-li;
