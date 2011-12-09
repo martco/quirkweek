@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :missions, :through => :users_missions,
                       :source  => :mission
   
+  has_many :comments, :dependent => :destroy,
+                      :order     => "created_at DESC"
+  
   attr_accessor :password
   attr_accessor :password_confirmation
   
