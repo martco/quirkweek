@@ -23,10 +23,8 @@ h1:first-child{
 }
 
 .featured-area{
-	margin:0;
-	padding:0;
+	@include clean-ul;
 	height:300px;
-	list-style: none;
 	border: 1px solid #DDD;
 	@include rounded-corners(4px);
 	
