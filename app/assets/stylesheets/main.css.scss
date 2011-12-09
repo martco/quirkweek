@@ -73,6 +73,10 @@ h1:first-child{
 	overflow-y:scroll;
 	overflow-x:hidden;
 	
+	.new-comment input.btn{
+		margin:31px 0px 0px 10px;
+	}
+	
 	ul{
 		@include clean-ul;
 	}
@@ -80,8 +84,10 @@ h1:first-child{
 	li{
 		@include clean-li;
 		margin:20px 0px;
-		font-size:1.1em;
-		
+
+		.comment-text{
+			font-size:1.1em;			
+		}
 		.comment-user-time{
 			font-style:italic;
 		}

@@ -12,4 +12,10 @@ class UsersMission < ActiveRecord::Base
   validates_presence_of :mission_id
   
   validates_presence_of :text
+  
+  
+  def has_comments?
+    self.comments.count > 0 ? true : false
+  end
+  
 end

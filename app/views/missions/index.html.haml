@@ -40,30 +40,17 @@
       
       / Comment section
       .row.comment-section
-      
-        %textarea{:style => "width:400px;" }
-          Temporary textarea placed here..
-          
-        %a.btn{:href => "#", :style => "margin-top:17px;"}
-          Post
+        .new-comment
+          =form_for @comment do |f|
+            =f.hidden_field :user_id,          :value => @user.id            #manually assigned, to be changed
+            =f.hidden_field :users_mission_id, :value => @featured_quirk.id  #manually assigned, to be changed
+            =f.text_area :text, {:style => "width: 400px; height:50px;", :value => "Commenting works, try it!"} 
+            =f.submit "Post", {:class => "btn primary"}
         
-        %ul  
-          -5.times do
-            %li
-              This is a random visitor comment. He looks around, likes the quirks, watches the content and giggles.
-              .comment-user-time
-                Mark - 25 minutes ago
-                
-            %li
-              Another visitor submission. This is a shorter one.
-              .comment-user-time
-                Clara - less than an hour ago
-
-            %li
-              This visitor sp33ks 1337. And he can talk and talk. And talk and talk. He describes his emotions in detail - paying attention to everything.
-              .comment-user-time
-                Anthony - 2 hours ago
-
+        %ul
+          -if @featured_quirk.has_comments?
+            =render 'comments', :quirk => @featured_quirk
+            
 
     / This is the left sidebar
     .span-one-third
