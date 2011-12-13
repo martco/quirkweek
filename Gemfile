@@ -8,6 +8,7 @@ gem 'thin'
 
 gem 'pg'
 gem 'haml'
+gem 'omniauth-twitter'
 
 
 # Gems used only for assets and not required

@@ -1,11 +1,18 @@
 @import "mixins";
+body{
+	padding-top: 40px;
+}
 
 #wrapper{
-	margin-top:20px;
+	//margin-top:20px;
 }
 
 h1:first-child{
 	margin:40px 0px 10px 0px;
+}
+
+.topbar .brand:hover{
+	background-color: transparent;  //overriding boostrap defaults
 }
 
 #time-left{
