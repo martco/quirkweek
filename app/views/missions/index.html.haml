@@ -1,20 +1,4 @@
-.topbar-wrapper{:style => "z-index:5;"}
-  .topbar
-    .topbar-inner
-      .fill
-        .container
-          .brand
-            Quirkweek
-          %ul.nav.secondary-nav
-            -if current_user
-              %li
-                Welcome
-                =current_user.name
-            -else
-              %li
-                %a{:href => "/auth/twitter"}
-                  Sign in with Twitter
-          
+=render 'topbar'
 
 #wrapper.container
   
