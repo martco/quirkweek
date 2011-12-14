@@ -18,3 +18,5 @@
             %p.pull-right
               Logged in as
               =link_to "#{current_user.name}", "#"
+              via
+              =current_user.provider.capitalize
