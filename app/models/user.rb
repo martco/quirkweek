@@ -13,19 +13,19 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   
 	
-	EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+	#EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 	
-	validates_presence_of :name, :message => "Enter your name"
-	validates_length_of   :name, :within => 2..30, :too_long => "Name is too long, maximum is 30 characters",
-	                                             :too_short => "Name is too short, minimum is 2 characters"
+	validates_presence_of :username, :message => "Enter your username"
+	validates_length_of   :username, :within => 4..15, :too_long => "Username is too long, maximum is 15 characters",
+	                                             :too_short => "Name is too short, minimum is 4 characters"
 
 	
-	validates_presence_of   :email, :message => "Enter an email"
-	validates_uniqueness_of :email, :message => "This email is already taken"
-	validates_length_of     :email, :maximum => 50, :message => "Email should be less than 50 characters long"
-
-	validates_format_of :email, :with => EMAIL_REGEX, :message => "Enter a valid email format"
-
+	# validates_presence_of   :email, :message => "Enter an email"
+	#  validates_uniqueness_of :email, :message => "This email is already taken"
+	#  validates_length_of     :email, :maximum => 50, :message => "Email should be less than 50 characters long"
+	# 
+	#  validates_format_of :email, :with => EMAIL_REGEX, :message => "Enter a valid email format"
+	
 	validate            :password_must_be_present
 	validates_length_of :password, :minimum => 5, :message => "Password minimum is 5 characters", :allow_nil => true  #allow_nil is here for a reason
 	validates_length_of :password, :maximum => 30, :message => "Password maximum is 30 characters", :allow_nil => true  #allow_nil is here for a reason
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 	validate                  :password_confirmation_must_be_present
 	validates_confirmation_of :password, :message => "Passwords do not match", :if => :password_should_change
 	
-	before_save :create_hashed_password, :downcase_email
+	before_save :create_hashed_password  #, :downcase_email
 	after_save  :clear_password
 	
   attr_protected :hashed_password, :salt
@@ -58,16 +58,16 @@ class User < ActiveRecord::Base
 		
 	#authentication methods below
 	
-	def self.make_salt(email="")
-    Digest::SHA1.hexdigest("Take #{email} with #{Time.now} to make salt")
+	def self.make_salt(username="")
+    Digest::SHA1.hexdigest("Take #{username} with #{Time.now} to make salt")
   end
 	
   def self.hash_with_salt(password="", salt="")
     Digest::SHA1.hexdigest("Put #{salt} on the #{password}")
   end
     
-  def self.authenticate(email="", password="")
-    user = User.find_by_email(email)
+  def self.authenticate(username="", password="")
+    user = User.find_by_username(username)
     if user && user.password_match?(password)
       return user
     else
@@ -79,15 +79,15 @@ class User < ActiveRecord::Base
     hashed_password == User.hash_with_salt(password, salt)
   end
   
-  def downcase_email
-    self.email = self.email.downcase
-  end
+  # def downcase_email
+  #   self.email = self.email.downcase
+  # end
     
   private
 
   def create_hashed_password
-    unless password.blank? #if there is a password it is changed
-      self.salt = User.make_salt(email) if salt.blank?
+    unless password.blank?     #if there is a password it is updated
+      self.salt = User.make_salt(username) if salt.blank?
       self.hashed_password = User.hash_with_salt(password, salt)
     end
   end
@@ -102,3 +102,16 @@ class User < ActiveRecord::Base
   
   
 end
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer         not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  hashed_password :string(255)
+#  salt            :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+

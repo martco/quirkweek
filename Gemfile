@@ -29,4 +29,5 @@ end
 
 group :test, :development do
   gem 'sqlite3'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end

@@ -1,0 +1,39 @@
+=render 'partials/topbar'
+
+#wrapper.container
+
+  -#=render 'partials/notification'  #notification on top
+
+  %h1.text-center
+    Create an account!
+
+
+  .row
+    .span12.offset4
+      =form_for @user, :url => signup_path do |f|
+        %fieldset
+          .clearfix{:class => "#{print_error('username')}"}
+            =f.label :username
+            .input
+              =f.text_field :username
+              %span.help-inline
+                =first_error 'username'
+
+          .clearfix{:class => "#{print_error 'password' }"}
+            =f.label :password
+            .input
+              =f.password_field :password
+              %span.help-inline
+                =first_error 'password'
+
+          .clearfix{:class => "#{print_error 'password' }"}
+            =f.label :password_confirmation, "Confirm password"
+            .input
+              =f.password_field :password_confirmation
+              %span.help-inline
+                =first_error 'password'
+
+          .clearfix
+            .row
+              .offset3
+                =f.submit "Create account", {:class => "btn"}
