@@ -2,8 +2,13 @@
 
 #wrapper.container
   
+  =render 'partials/notification'  #notification on top
+  
   %h1.text-center
-    =@mission.title
+    -if @mission
+      =@mission.title
+    -else
+      Currently no mission
 
   %h5.text-center
     4 people quirked this week!
@@ -26,7 +31,10 @@
         %ul.featured-area
           %li
             /Lotta text here. Yup, nothing but a lotta text
-            =@featured_quirk.text
+            -if @featured_quirk
+              =@featured_quirk.text
+            -else
+              No quirks currently
           
         .featured-details
           .featured-details-left
@@ -34,37 +42,28 @@
           .featured-details-right
             %ul
               %li.featured-name
-                =@user.name
+                -if @featured_quirk
+                  =@featured_quirk.user.username
               %li
                 Friday, 11:59 pm CST
               %li
                 Chicago, Illinois, USA
       
       / Comment section
+      / New comment
       .row.comment-section
-        .new-comment
-          =form_for @comment do |f|
-            =f.hidden_field :user_id,          :value => @user.id            #manually assigned, to be changed
-            =f.hidden_field :users_mission_id, :value => @featured_quirk.id  #manually assigned, to be changed
-            =f.text_area :text, {:style => "width: 400px; height:50px;", :value => "Commenting works, try it!"} 
-            =f.submit "Post", {:class => "btn primary"}
-        
+        -if @user && @featured_quirk        
+          =render 'new_comment', :user_id => @user.id, :featured_quirk_id => @featured_quirk.id, :comment => @comment
+
+        / Rest of the comments
         %ul
-          -if @featured_quirk.has_comments?
+          -if @featured_quirk && @featured_quirk.has_comments?
             =render 'comments', :quirk => @featured_quirk
             
 
-    / This is the left sidebar
+    / This is the right sidebar
     .span-one-third
-      #right-sidebar
-        %ul
-          -10.times do
-            %li
-              Here is something for the sidebar. Lets see how much text fits here and what does the wrap look like.
-            %li
-              Omg great content submission! You won't believe it when you see it!
-            %li
-              A user posts a pic that a lot of people like
+      =render 'right_sidebar'
 
 / Footer
 %footer.footer

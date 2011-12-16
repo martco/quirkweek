@@ -1,0 +1,6 @@
+.new-comment
+  =form_for comment do |f|
+    =f.hidden_field :user_id,          :value => user_id            #manually assigned, to be changed
+    =f.hidden_field :users_mission_id, :value => featured_quirk_id  #manually assigned, to be changed
+    =f.text_area :text, {:style => "width: 400px; height:50px;", :value => "Commenting works, try it!"} 
+    =f.submit "Post", {:class => "btn primary"}

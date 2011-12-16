@@ -2,9 +2,10 @@ class SessionsController < ApplicationController
   
   # social accounts methods
   def create
-    user_social              = UserSocial.from_omniauth(env["omniauth.auth"])
-    session[:user_social_id] = user_social.id
-    redirect_to root_url, :notice => "Signed in with Twitter!"
+    render :text => env["omniauth.auth"].to_yaml
+    # user_social              = UserSocial.from_omniauth(env["omniauth.auth"])
+    # session[:user_social_id] = user_social.id
+    # redirect_to root_url, :notice => "Signed in with Twitter!"
   end
   
   #this should be removed shortly

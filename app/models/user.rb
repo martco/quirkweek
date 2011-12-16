@@ -24,10 +24,10 @@ class User < ActiveRecord::Base
 
 	
 	# validates_presence_of   :email, :message => "Enter an email"
-	#  validates_uniqueness_of :email, :message => "This email is already taken"
-	#  validates_length_of     :email, :maximum => 50, :message => "Email should be less than 50 characters long"
+	# validates_uniqueness_of :email, :message => "This email is already taken"
+	# validates_length_of     :email, :maximum => 50, :message => "Email should be less than 50 characters long"
 	# 
-	#  validates_format_of :email, :with => EMAIL_REGEX, :message => "Enter a valid email format"
+	# validates_format_of :email, :with => EMAIL_REGEX, :message => "Enter a valid email format"
 	
 	validate            :password_must_be_present
 	validates_length_of :password, :minimum => 5, :message => "Password minimum is 5 characters", :allow_nil => true  #allow_nil is here for a reason

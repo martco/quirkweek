@@ -1,7 +1,6 @@
 Quirkweek::Application.routes.draw do
 
-  #root :to => 'missions#index'
-  root :to => "users#new"
+  root :to => 'missions#index'
 
   resources :missions
   resources :comments
@@ -12,7 +11,6 @@ Quirkweek::Application.routes.draw do
     
   get "signup" => "users#new"
   post "signup" => "users#create"
-  
   match "/auth/:provider/callback" => "sessions#create"
-
+  match "/auth/failure"            => "sessions#failure"
 end
