@@ -14,10 +14,13 @@ class User < ActiveRecord::Base
   
 	
 	#EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+	USERNAME_REGEX = /^[A-Z0-9._-]+$/i
 	
-	validates_presence_of :username, :message => "Enter your username"
-	validates_length_of   :username, :within => 4..15, :too_long => "Username is too long, maximum is 15 characters",
-	                                             :too_short => "Name is too short, minimum is 4 characters"
+	validates_presence_of   :username, :message => "Enter your username"
+	validates_uniqueness_of :username, :message => "This username is already taken"
+	validates_format_of     :username, :with => USERNAME_REGEX, :message => "Username can have only . _ -"
+	validates_length_of     :username, :within => 4..15, :too_long => "Username is too long, maximum is 15 characters",
+	                                                     :too_short => "Name is too short, minimum is 4 characters"
 
 	
 	# validates_presence_of   :email, :message => "Enter an email"

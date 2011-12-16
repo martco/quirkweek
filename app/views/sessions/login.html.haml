@@ -1,0 +1,27 @@
+=render 'partials/topbar'
+
+#wrapper.container
+
+  =render 'partials/notification'  #notification on top
+
+  %h1.text-center
+    Login
+
+  .row
+    .span12.offset4
+      =form_tag :action => 'attempt_login' do
+        %fieldset
+          .clearfix
+            =label_tag :username
+            .input
+              =text_field_tag :username
+          
+          .clearfix
+            =label_tag :password
+            .input
+              =password_field_tag :password
+
+          .clearfix
+            .row
+              .offset3{:style => "padding-left:40px"}
+                =submit_tag "Login", {:class => "btn"}

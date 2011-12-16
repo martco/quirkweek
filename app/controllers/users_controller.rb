@@ -10,10 +10,10 @@ class UsersController < ApplicationController
     if @user.valid?
       @user.save
       sign_in @user
-      redirect_to root_path, :notice => "Hello, welcom to Quirkweek!"
+      redirect_to root_path, :notice => "Hello, welcome to Quirkweek!"
     else
       @title = "Sign up"
-      flash[:notice] = "Wrong input"
+      flash.now[:alert] = "Wrong input"
       render 'new'
     end
   end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to root_path, :notice => "Your profile has been updated"
     else
-      redirect_to root_path, :notice => "Error - profile not updated"
+      redirect_to root_path, :alert => "Error - profile not updated"
     end
   end
   
