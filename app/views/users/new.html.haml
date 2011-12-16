@@ -15,7 +15,7 @@
           .clearfix{:class => "#{ username_error }"}
             =f.label :username
             .input
-              =f.text_field :username
+              -#=f.text_field :username
               %span.help-inline
                 =first_error 'username'
           
