@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
 	
   attr_protected :hashed_password, :salt
 	
+	# validation methods	
 	def password_must_be_present
 	  if password_confirmation.present?
 	    errors.add(:password, "Missing password") unless password.present? # error on password update
@@ -62,6 +63,12 @@ class User < ActiveRecord::Base
 	def password_should_change
 	  password.present? ? true : false
 	end
+	
+	# regular 'helper' method
+	def first_name
+	  self.name.split[0].capitalize
+	end
+	
 		
 	#authentication methods below
 	
@@ -89,7 +96,8 @@ class User < ActiveRecord::Base
   # def downcase_email
   #   self.email = self.email.downcase
   # end
-    
+
+
   private
 
   def create_hashed_password
@@ -106,34 +114,40 @@ class User < ActiveRecord::Base
   
   #authentication methods are above this line
   
+
+  # methods for integrating with social accounts
   
-  def self.create_from_authentication(omniauth)
+  def self.create_from_authentication(name, username)
     dummy_password = SecureRandom.hex(10)   # dummy password just that user validation can pass
-    User.create(:name                  => make_valid_name omniauth["info"]["name"],
-                :username              => make_unique_username omniauth["info"]["nickname"],
+    valid_name     = User.make_valid_name(name)
+    valid_username = User.make_valid_username(username)
+    
+    User.create(:name                  => valid_name,
+                :username              => valid_username,
                 :just_social           => true,
                 :password              => dummy_password, 
                 :password_confirmation => dummy_password)
   end
 
-  def make_unique_username(nickname)
-    if nickname.length > 13
-      nickname = nickname[1..13]
-    elsif nickname.length < 4
-      nickname.ljust(4,'abcd')  #fills up nickname up to 4 chars
+
+  def self.make_valid_username(username)  # every return adds random hex so username should always be unique
+    if username.length > 11
+      username = username[0..11]
+    elsif username.length < 4
+      username = username.ljust(4,'abcd') #fills up nickname up to 4 chars
     end
-    nickname + SecureRandom.hex(1)  # adds 2 random characters so nickname is more probably unique
+    return (username + SecureRandom.hex(2))   # adds 4 unique character for username at the end
   end
+
   
-  def make_valid_name(name)
+  def self.make_valid_name(name)
     if name.length > 30
-      name = name[1..30]     # cutts of name to be 30 chars long
+      name = name[0..29]         # cutts of name to be 30 chars long
     elsif name.length < 4
-      name.ljust(4, 'abcd')  # fills up name up to 4 characters
+      name = name.ljust(4, 'abcd')  # fills up name up to 4 characters
     end
     return name
   end
-  
   
 end
 # == Schema Information

@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string "name"
       t.string "username"
       #t.string "email"
+      t.boolean "just_social", :default => false
       t.string "hashed_password"
       t.string "salt"
 

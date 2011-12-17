@@ -18,6 +18,14 @@
               =f.text_field :username
               %span.help-inline
                 =first_error 'username'
+
+          -name_error = print_error 'name'
+          .clearfix{:class => "#{ name_error }"}
+            =f.label :name
+            .input
+              =f.text_field :name
+              %span.help-inline
+                =first_error 'name'
           
           -password_error = print_error 'password'
           .clearfix{:class => "#{ password_error }"}

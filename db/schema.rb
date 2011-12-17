@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20111217083754) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "username"
+    t.boolean  "just_social",     :default => false
     t.string   "hashed_password"
     t.string   "salt"
     t.datetime "created_at"

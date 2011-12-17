@@ -3,19 +3,22 @@ class SessionsController < ApplicationController
   # social accounts methods
   def create
     #render :text => env["omniauth.auth"].to_yaml
-    omniauth       = env["omniauth.auth"]
+    
+    omniauth       = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-
+    #redirect_to root_url, :notice => "Success so far #{authentication}"
+  
     if authentication
       sign_in authentication.user      # signs in with basic user
-      redirect_to root_url, :notice => "Signed in successfully"
-
-    elsif signed_in?  # basic user exists, just add authentication
+      redirect_to root_url, :notice => "Signed in successfully via #{omniauth['provider'].capitalize}"
+    
+    elsif signed_in?  # basic user exists, just add new authentication
       current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       redirect_to root_url, :notice => "Successfully added authentication!"
-
+    
     else # this is first sign-in, basic user has to be created
-      user = User.create_from_authentication(omniauth)
+      user = User.create_from_authentication(omniauth['info']['name'], omniauth['info']['nickname'])
+      #redirect_to root_url, :notice => "Dosao sam do tu! #{user.name}, #{user.username}"
       user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       sign_in user
       redirect_to root_url, :notice => "Successful authentication!"
@@ -42,7 +45,7 @@ class SessionsController < ApplicationController
     authorized_user = User.authenticate(params[:username], params[:password])
     if authorized_user
       sign_in authorized_user
-      redirect_to root_path, :notice => "Hello #{authorized_user.username}, welcome back!"
+      redirect_to root_path, :notice => "Hello #{authorized_user.first_name}, welcome back!"
     else
       redirect_to login_path, :alert => "Wrong email or password"
     end
