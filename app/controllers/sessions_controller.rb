@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       #redirect_to root_url, :notice => "Dosao sam do tu! #{user.name}, #{user.username}"
       user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       sign_in user
-      redirect_to root_url, :notice => "Successful authentication!"
+      redirect_to root_url, :notice => "Successful authentication via #{omniauth['provider'].capitalize}"
     end
   end
   
