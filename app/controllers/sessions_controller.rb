@@ -41,6 +41,9 @@ class SessionsController < ApplicationController
     @title = "Login"
   end
   
+  def choose_signup
+  end
+  
   def attempt_login
     authorized_user = User.authenticate(params[:username], params[:password])
     if authorized_user

@@ -7,6 +7,10 @@
   %h1.text-center
     Login
 
+  .row{:style => "padding:20px 0px;"}
+    %h6.text-center
+      with username & password
+
   .row
     .span12.offset4
       =form_tag :action => 'attempt_login' do
@@ -23,5 +27,21 @@
 
           .clearfix
             .row
-              .offset3{:style => "padding-left:40px"}
+              .offset3{:style => "padding-left:20px"}
                 =submit_tag "Login", {:class => "btn"}
+
+
+  .row{:style => "padding-top:40px;"}
+    %h6.text-center
+      or login with social account
+    .text-center
+      %i
+        (just click on an icon)
+      
+  .row.text-center{:style => "padding-top:30px;"}
+    =link_to image_tag("/assets/facebook_64.png"), "/auth/facebook"
+    &nbsp;  &nbsp;    &nbsp;    &nbsp;
+    =link_to image_tag("/assets/twitter_64.png"), "/auth/twitter"
+    
+    
+    
