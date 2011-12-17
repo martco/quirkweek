@@ -5,4 +5,16 @@
   =render 'partials/notification'  #notification on top
 
   %h1.text-center
-    Create an account!
+    My Account
+    
+  .row{:style => "padding-top:30px;"}
+    .offset3.span10
+      .row
+        %ul.tabs
+          %li.active
+            =link_to "Home", "#"
+          %li
+            =link_to "Profile", "#"
+      .row
+        .span10{:style => "border: 1px solid red; margin-left:10px;"}
+          This some text
