@@ -9,18 +9,22 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy,
                       :order     => "created_at DESC"
   
+  has_many :authentications, :dependent => :destroy
+  
   attr_accessor :password
   attr_accessor :password_confirmation
   
 	
 	#EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 	USERNAME_REGEX = /^[A-Z0-9._-]+$/i
+
+	validates_presence_of   :name, :message => "Enter your name"
+	validates_length_of     :name, :within => 4..30, :message => "Name should be between 4 and 30 characters long."
 	
 	validates_presence_of   :username, :message => "Enter your username"
 	validates_uniqueness_of :username, :message => "This username is already taken"
-	validates_format_of     :username, :with => USERNAME_REGEX, :message => "Username can have only . _ -"
-	validates_length_of     :username, :within => 4..15, :too_long => "Username is too long, maximum is 15 characters",
-	                                                     :too_short => "Name is too short, minimum is 4 characters"
+	validates_format_of     :username, :with   => USERNAME_REGEX, :message => "Username can have only . _ -"
+	validates_length_of     :username, :within => 4..15, :message => "Username should be between 4 and 15 characters long."
 
 	
 	# validates_presence_of   :email, :message => "Enter an email"
@@ -30,7 +34,7 @@ class User < ActiveRecord::Base
 	# validates_format_of :email, :with => EMAIL_REGEX, :message => "Enter a valid email format"
 	
 	validate            :password_must_be_present
-	validates_length_of :password, :minimum => 5, :message => "Password minimum is 5 characters", :allow_nil => true  #allow_nil is here for a reason
+	validates_length_of :password, :minimum => 5,  :message => "Password minimum is 5 characters", :allow_nil => true  #allow_nil is here for a reason
 	validates_length_of :password, :maximum => 30, :message => "Password maximum is 30 characters", :allow_nil => true  #allow_nil is here for a reason
 	
 	validate                  :password_confirmation_must_be_present
@@ -102,6 +106,33 @@ class User < ActiveRecord::Base
   
   #authentication methods are above this line
   
+  
+  def self.create_from_authentication(omniauth)
+    dummy_password = SecureRandom.hex(10)   # dummy password just that user validation can pass
+    User.create(:name                  => make_valid_name omniauth["info"]["name"],
+                :username              => make_unique_username omniauth["info"]["nickname"],
+                :just_social           => true,
+                :password              => dummy_password, 
+                :password_confirmation => dummy_password)
+  end
+
+  def make_unique_username(nickname)
+    if nickname.length > 13
+      nickname = nickname[1..13]
+    elsif nickname.length < 4
+      nickname.ljust(4,'abcd')  #fills up nickname up to 4 chars
+    end
+    nickname + SecureRandom.hex(1)  # adds 2 random characters so nickname is more probably unique
+  end
+  
+  def make_valid_name(name)
+    if name.length > 30
+      name = name[1..30]     # cutts of name to be 30 chars long
+    elsif name.length < 4
+      name.ljust(4, 'abcd')  # fills up name up to 4 characters
+    end
+    return name
+  end
   
   
 end

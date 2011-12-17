@@ -2,17 +2,31 @@ class SessionsController < ApplicationController
   
   # social accounts methods
   def create
-    render :text => env["omniauth.auth"].to_yaml
-    # user_social              = UserSocial.from_omniauth(env["omniauth.auth"])
-    # session[:user_social_id] = user_social.id
-    # redirect_to root_url, :notice => "Signed in with Twitter!"
+    #render :text => env["omniauth.auth"].to_yaml
+    omniauth       = env["omniauth.auth"]
+    authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+
+    if authentication
+      sign_in authentication.user      # signs in with basic user
+      redirect_to root_url, :notice => "Signed in successfully"
+
+    elsif signed_in?  # basic user exists, just add authentication
+      current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      redirect_to root_url, :notice => "Successfully added authentication!"
+
+    else # this is first sign-in, basic user has to be created
+      user = User.create_from_authentication(omniauth)
+      user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      sign_in user
+      redirect_to root_url, :notice => "Successful authentication!"
+    end
   end
   
   #this should be removed shortly
-  def destroy
-    session[:user_social_id] = nil
-    redirect_to root_url, :notice => "Signed out!"
-  end
+  # def destroy  # this was a method to logout when UserSocial model existed
+  #   session[:user_social_id] = nil
+  #   redirect_to root_url, :notice => "Signed out!"
+  # end
   
   def failure
     redirect_to root_url,  :alert => "Authentication failed, please try again."
