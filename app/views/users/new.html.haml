@@ -14,7 +14,7 @@
 
           -username_error = print_error 'username'
           .clearfix{:class => "#{ username_error }"}
-            =f.label :username
+            =label :username, "Username"
             .input
               =f.text_field :username
               %span.help-inline
@@ -22,18 +22,16 @@
               
           -password_error = print_error 'password'
           .clearfix{:class => "#{ password_error }"}
-            =f.label :password
+            =label :password, "Password"
             .input
               =f.password_field :password
               %span.help-inline
                 =first_error 'password'
           
-          .clearfix{:class => "#{ password_error }"}
-            =f.label :password_confirmation, "Confirm password"
+          .clearfix
+            =label :password_confirmation, "Confirm password"
             .input
               =f.password_field :password_confirmation
-              %span.help-inline
-                =first_error 'password'
           
           .clearfix
             .row

@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 	validates_presence_of   :username, :message => "Enter your username"
 	validates_uniqueness_of :username, :message => "This username is already taken"
 	validates_format_of     :username, :with   => USERNAME_REGEX, :message => "Username can contain only letters and numbers"
-	validates_length_of     :username, :within => 6..15, :message => "Username should be between 6 and 15 characters long"
+	validates_length_of     :username, :within => 6..15, :message => "Should be between 6 and 15 characters long"
   validate                :username_must_not_be_vulgar
   validate                :username_more_letters_than_numbers
 	
