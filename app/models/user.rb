@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
     elsif omniauth['provider'] == 'facebook'    # facebook
       name = omniauth['info']['first_name']
     end
-    username = SecureRandom.hex(5) # makes unique 10-char-long random string
+    username = "RandUser" + SecureRandom.hex(3) # makes unique 10-char-long random string
     
     User.create(:name                  => name,             #twitter username or facebook first name
                 :username              => valid,
