@@ -10,7 +10,7 @@ gem 'pg'
 gem 'haml'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-
+gem 'profanity_filter'
 
 # Gems used only for assets and not required
 # in production environments by default.

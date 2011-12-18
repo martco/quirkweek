@@ -14,9 +14,8 @@ class SessionsController < ApplicationController
       current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       redirect_to root_url, :notice => "Successfully added authentication!"
     
-    else # this is first sign-in, basic user has to be created
+    else              # this is first social sign-in, basic user has to be created
       user = User.create_from_authentication(omniauth)
-      #redirect_to root_url, :notice => "Dosao sam do tu! #{user.name}, #{user.username}"
       user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       sign_in user
       redirect_to root_url, :notice => "Successful authentication via #{omniauth['provider'].capitalize}"

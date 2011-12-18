@@ -19,7 +19,7 @@
               =f.text_field :username
               %span.help-inline
                 =first_error 'username'
-          
+              
           -password_error = print_error 'password'
           .clearfix{:class => "#{ password_error }"}
             =f.label :password
@@ -27,15 +27,22 @@
               =f.password_field :password
               %span.help-inline
                 =first_error 'password'
-
+          
           .clearfix{:class => "#{ password_error }"}
             =f.label :password_confirmation, "Confirm password"
             .input
               =f.password_field :password_confirmation
               %span.help-inline
                 =first_error 'password'
-            
+          
           .clearfix
             .row
               .offset3
                 =f.submit "Create account", {:class => "btn"}
+                
+  .row{:style => 'padding:30px 0px 0px 20px;'}
+    .offset4<
+      By clicking 'Create account' you agree to
+      %span<
+        =link_to "Quirkweek terms and conditions", "#"
+        ="."
