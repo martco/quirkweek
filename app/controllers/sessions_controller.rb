@@ -2,7 +2,9 @@ class SessionsController < ApplicationController
   
   # social accounts methods
   def create
-    #render :text => env["omniauth.auth"].to_yaml
+    render :text => env["omniauth.auth"].to_yaml
+  end
+  def nesto
     omniauth       = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
   
