@@ -153,7 +153,7 @@ class User < ActiveRecord::Base
     username = "RandUser" + SecureRandom.hex(3) # makes unique 10-char-long random string
     
     User.create(:name                  => name,             #twitter username or facebook first name
-                :username              => valid,
+                :username              => username,
                 :just_social           => true,
                 :password              => dummy_password, 
                 :password_confirmation => dummy_password)
