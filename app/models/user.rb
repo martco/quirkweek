@@ -150,24 +150,24 @@ class User < ActiveRecord::Base
     elsif omniauth['provider'] == 'facebook'    # facebook
       name = omniauth['info']['first_name']
     end
-    valid_username = User.make_valid_username(omniauth['info']['nickname'])
+    username = SecureRandom.hex(5) # makes unique 10-char-long random string
     
     User.create(:name                  => name,             #twitter username or facebook first name
-                :username              => valid_username,
+                :username              => valid,
                 :just_social           => true,
                 :password              => dummy_password, 
                 :password_confirmation => dummy_password)
   end
 
-
-  def self.make_valid_username(username)  # every return adds random hex so username should always be unique
-    if username.length > 11
-      username = username[0..11]
-    elsif username.length < 6
-      username = username.ljust(6,'abcd') #fills up username up to 6 chars
-    end
-    return (username + SecureRandom.hex(2))   # adds 4 unique character for username at the end
-  end
+  # this method is now obsolete. To be deleted
+  # def self.make_valid_username(username)  # every return adds random hex so username should always be unique
+  #   if username.length > 11
+  #     username = username[0..11]
+  #   elsif username.length < 6
+  #     username = username.ljust(6,'abcd') #fills up username up to 6 chars
+  #   end
+  #   return (username + SecureRandom.hex(2))   # adds 4 unique character for username at the end
+  # end
 
   # this method is now obsolete. To be deleted
   # def self.make_valid_name(name)
