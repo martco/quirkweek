@@ -119,14 +119,15 @@ class User < ActiveRecord::Base
   
   def self.create_from_authentication(omniauth)
     dummy_password = SecureRandom.hex(10)   # dummy password just that user validation can pass
-    if omniauth['provider'] == 'twitter'
-      name = omniauth['info']['account_name']  ## this needs to be looked up
-    elsif omniauth['provider'] == 'facebook'
+
+    if omniauth['provider'] == 'twitter'        # twitter
+      name = omniauth['info']['nickname']
+    elsif omniauth['provider'] == 'facebook'    # facebook
       name = omniauth['info']['first_name']
     end
-    valid_username = User.make_valid_username(omniauth['info']['username'])
+    valid_username = User.make_valid_username(omniauth['info']['nickname'])
     
-    User.create(:name                  => name,
+    User.create(:name                  => name, #twitter username or facebook first name
                 :username              => valid_username,
                 :just_social           => true,
                 :password              => dummy_password, 
@@ -143,15 +144,15 @@ class User < ActiveRecord::Base
     return (username + SecureRandom.hex(2))   # adds 4 unique character for username at the end
   end
 
-  
-  def self.make_valid_name(name)
-    if name.length > 30
-      name = name[0..29]         # cutts of name to be 30 chars long
-    elsif name.length < 4
-      name = name.ljust(4, 'abcd')  # fills up name up to 4 characters
-    end
-    return name
-  end
+  # this method is now obsolete. To be deleted
+  # def self.make_valid_name(name)
+  #   if name.length > 30
+  #     name = name[0..29]         # cutts of name to be 30 chars long
+  #   elsif name.length < 4
+  #     name = name.ljust(4, 'abcd')  # fills up name up to 4 characters
+  #   end
+  #   return name
+  # end
   
 end
 # == Schema Information
