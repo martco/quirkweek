@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def create    #post signup
     @user = User.new(params[:user])
+    @user.name = @user.username  # assigning the [username] to be user username
     if @user.valid?
       @user.save
       sign_in @user
@@ -28,7 +29,6 @@ class UsersController < ApplicationController
   end
   
   def account
-    
   end
   
 end

@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 	USERNAME_REGEX = /^[A-Z0-9._-]+$/i
 
 	validates_presence_of   :name, :message => "Enter your name"
-	validates_length_of     :name, :within => 4..30, :message => "Name should be between 4 and 30 characters long."
+	#validates_length_of     :name, :within => 4..30, :message => "Name should be between 4 and 30 characters long."
 	
 	validates_presence_of   :username, :message => "Enter your username"
 	validates_uniqueness_of :username, :message => "This username is already taken"
@@ -117,12 +117,16 @@ class User < ActiveRecord::Base
 
   # methods for integrating with social accounts
   
-  def self.create_from_authentication(name, username)
+  def self.create_from_authentication(omniauth)
     dummy_password = SecureRandom.hex(10)   # dummy password just that user validation can pass
-    valid_name     = User.make_valid_name(name)
-    valid_username = User.make_valid_username(username)
+    if omniauth['provider'] == 'twitter'
+      name = omniauth['info']['account_name']  ## this needs to be looked up
+    elsif omniauth['provider'] == 'facebook'
+      name = omniauth['info']['first_name']
+    end
+    valid_username = User.make_valid_username(omniauth['info']['username'])
     
-    User.create(:name                  => valid_name,
+    User.create(:name                  => name,
                 :username              => valid_username,
                 :just_social           => true,
                 :password              => dummy_password, 

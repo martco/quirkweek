@@ -12,14 +12,6 @@
       =form_for @user, :url => signup_path do |f|
         %fieldset
 
-          -name_error = print_error 'name'
-          .clearfix{:class => "#{ name_error }"}
-            =f.label :name
-            .input
-              =f.text_field :name
-              %span.help-inline
-                =first_error 'name'
-
           -username_error = print_error 'username'
           .clearfix{:class => "#{ username_error }"}
             =f.label :username
@@ -27,8 +19,6 @@
               =f.text_field :username
               %span.help-inline
                 =first_error 'username'
-
-
           
           -password_error = print_error 'password'
           .clearfix{:class => "#{ password_error }"}

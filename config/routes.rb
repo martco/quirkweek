@@ -6,7 +6,7 @@ Quirkweek::Application.routes.draw do
   resources :comments
   
   get "login"          => "sessions#login"
-  get "signout"        => "sessions#signout"
+  get "logout"        => "sessions#signout"
   post "attempt_login" => "sessions#attempt_login"
     
   get "signup"         => "users#new"
