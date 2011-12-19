@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     
     else              # this is first social sign-in, basic user has to be created
       user = User.create_from_authentication(omniauth)
-      redirect_to root_url, :notice => "I successfully came here!"
+      redirect_to root_url, :notice => "I successfully came here! #{user.valid?}"
       #user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       #sign_in user
       #redirect_to root_url, :notice => "Successful authentication via #{omniauth['provider'].capitalize}"
