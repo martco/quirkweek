@@ -155,9 +155,9 @@ class User < ActiveRecord::Base
     dummy_password = SecureRandom.hex(5) + "0"   # dummy password just that user validation can pass
 
     if omniauth['provider'] == 'twitter'        # twitter
-      name = "testing name"
+      name = omniauth['info']['nickname']
     elsif omniauth['provider'] == 'facebook'    # facebook
-      name = "testing name"
+      name = omniauth['info']['first_name']
     end
     username = Array.new(10) { (rand(122-97) + 97).chr }.join  # makes unique 10-char-long random string
                  # facebook may not have username so cannot take the string from social network response
