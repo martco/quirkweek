@@ -16,5 +16,27 @@
           %li
             =link_to "Profile", "#"
       .row
-        .span10{:style => "border: 1px solid red; margin-left:10px;"}
-          This some text
+        .span10{:style => "margin-left:10px;"}
+          %h5
+            Available authentications
+          
+          .row
+            Twitter: &nbsp;
+            -if current_user.has_authentication?('twitter')
+              Available
+            -else
+              =link_to "Add", "/auth/twitter"
+              
+          .row
+            Facebook: &nbsp;
+            -if current_user.has_authentication?('facebook')
+              Available
+            -else
+              =link_to "Add", "/auth/facebook"
+              
+          .row  
+            Username & password: &nbsp;
+            -if ! current_user.just_social
+              Available
+            -else
+              =link_to "Add", password_authentication_path

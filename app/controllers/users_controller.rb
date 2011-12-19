@@ -18,17 +18,22 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
-  def update    #users/update
-    @user = current_user
-    if @user.update_attributes(params[:user])
-      redirect_to root_path, :notice => "Your profile has been updated"
-    else
-      redirect_to root_path, :alert => "Error - profile not updated"
-    end
-  end
   
   def account
+  end
+  
+  def password_authentication
+    @user = current_user
+  end
+  
+  def add_password_authentication    #users/update
+    @user = current_user
+    if @user.update_attributes(params[:user])
+      @user.update_attributes(:just_social => false)
+      redirect_to account_path, :notice => "Your profile has been updated"
+    else
+      render 'password_authentication', :alert => "Error - user not updated"
+    end
   end
   
 end

@@ -96,6 +96,13 @@ class User < ActiveRecord::Base
 	  self.name.split[0].capitalize
 	end
 	
+	def has_authentication?(authentication)
+    self.authentications.each do |a|
+      return true if a.provider == authentication
+    end
+    return false
+  end
+	
 		
 	#authentication methods below
 	
@@ -153,7 +160,7 @@ class User < ActiveRecord::Base
       name = omniauth['info']['first_name']
     end
     username = Array.new(10) { (rand(122-97) + 97).chr }.join  # makes unique 10-char-long random string
-    
+                 # facebook may not have username so cannot take the string from social network response
     User.create(:name                  => name,             #twitter username or facebook first name
                 :username              => username,
                 :just_social           => true,

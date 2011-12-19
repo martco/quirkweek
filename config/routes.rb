@@ -11,6 +11,8 @@ Quirkweek::Application.routes.draw do
     
   get "signup"         => "users#new"
   post "signup"        => "users#create"
+  get "password_authentication" => "users#password_authentication"
+  put "add_password_authentication" => "users#add_password_authentication"
   get "choose_signup"  => "sessions#choose_signup"
   get "account"        => "users#account"
   
