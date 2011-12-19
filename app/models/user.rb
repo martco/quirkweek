@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
   # methods for integrating with social accounts
   
   def self.create_from_authentication(omniauth)
-    dummy_password = SecureRandom.hex(5)   # dummy password just that user validation can pass
+    dummy_password = SecureRandom.hex(5) + "0"   # dummy password just that user validation can pass
 
     if omniauth['provider'] == 'twitter'        # twitter
       name = omniauth['info']['nickname']
@@ -161,12 +161,20 @@ class User < ActiveRecord::Base
     end
     username = Array.new(10) { (rand(122-97) + 97).chr }.join  # makes unique 10-char-long random string
                  # facebook may not have username so cannot take the string from social network response
-    User.create(:name                  => name,             #twitter username or facebook first name
+    user = User.new(:name                  => name,             #twitter username or facebook first name
                 :username              => username,
                 :just_social           => true,
                 :password              => dummy_password, 
                 :password_confirmation => dummy_password)
-                
+    if user.valid?
+      user.save
+      return user
+    else
+      user.name = "Whatever"
+      user.username = "validusr" + SecureRandom.hex(3)
+      return user
+    end
+             
   end
 
   # this method is now obsolete. To be deleted
