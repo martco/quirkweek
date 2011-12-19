@@ -3,12 +3,12 @@ class SessionsController < ApplicationController
   # social accounts methods
   def create
     #render :text => env["omniauth.auth"].to_yaml
-    redirect_to root_url, :notice => "I successfully came here!"
-  end
-  def nesto
+
     omniauth       = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-  
+    redirect_to root_url, :notice => "I successfully came here!"
+  end
+  def nesto  
     if authentication
       sign_in authentication.user      # signs in with basic user
       redirect_to root_url, :notice => "Signed in successfully via #{omniauth['provider'].capitalize}"
