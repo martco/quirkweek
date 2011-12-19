@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
 	end
 	
 	def username_more_letters_than_numbers
-	  if username  # if there is no username - gsub throws error
+	  if username                                         # if there is no username - gsub throws error
 	    letters     = username.gsub(/[^a-zA-Z]/, '').size   # deletes non-letters and counts the rest
 	    non_letters = username.gsub(/[a-zA-Z]/, '').size    # deletes the letters and counts the rest
 	    errors.add(:username, "Username cannot contain more numbers than letters") if non_letters > letters
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
   # methods for integrating with social accounts
   
   def self.create_from_authentication(omniauth)
-    dummy_password = SecureRandom.hex(10)   # dummy password just that user validation can pass
+    dummy_password = SecureRandom.hex(5)   # dummy password just that user validation can pass
 
     if omniauth['provider'] == 'twitter'        # twitter
       name = omniauth['info']['nickname']
