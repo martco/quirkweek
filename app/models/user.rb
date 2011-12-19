@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
   def self.create_from_authentication(omniauth)
     dummy_password = SecureRandom.hex(5) + "0"   # dummy password just that user validation can pass
 
-    if omniauth['provider'] == 'twitter'        # twitter
+    if omniauth['provider'] == 'twitter'        # twitter # add checks if data exists here
       name = omniauth['info']['nickname']
     elsif omniauth['provider'] == 'facebook'    # facebook
       name = omniauth['info']['first_name']
@@ -172,6 +172,7 @@ class User < ActiveRecord::Base
     else
       user.name = "Whatever"
       user.username = "validusr" + SecureRandom.hex(3)
+      user.save
       return user
     end
              
