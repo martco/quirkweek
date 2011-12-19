@@ -43,14 +43,6 @@ ActiveRecord::Schema.define(:version => 20111217083754) do
     t.datetime "updated_at"
   end
 
-  create_table "user_socials", :force => true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "username"
