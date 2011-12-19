@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     
     elsif signed_in?  # basic user exists, just add new authentication
       current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
-      redirect_to root_url, :notice => "Successfully added authentication!"
+      redirect_to account_path, :notice => "Successfully added authentication!"
     
     else              # this is first social sign-in, basic user has to be created
       user = User.create_from_authentication(omniauth)
