@@ -1,5 +1,5 @@
 module ApplicationHelper
   def title
-    "QuirkWeek - #{@mission.title}"
+    "QuirkWeek - #{@title}"
   end
 end

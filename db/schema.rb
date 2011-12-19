@@ -11,7 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205175036) do
+ActiveRecord::Schema.define(:version => 20111217083754) do
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "users_mission_id", :null => false
+    t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["users_mission_id"], :name => "index_comments_on_users_mission_id"
 
   create_table "missions", :force => true do |t|
     t.string   "title"
@@ -22,9 +43,18 @@ ActiveRecord::Schema.define(:version => 20111205175036) do
     t.datetime "updated_at"
   end
 
+  create_table "user_socials", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "email"
+    t.string   "username"
+    t.boolean  "just_social",     :default => false
     t.string   "hashed_password"
     t.string   "salt"
     t.datetime "created_at"

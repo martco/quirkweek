@@ -1,15 +1,22 @@
 @import "mixins";
+body{
+	padding-top: 40px;
+}
 
 #wrapper{
-	margin-top:20px;
+	//margin-top:20px;
 }
 
 h1:first-child{
-	margin:40px auto;
+	margin:40px 0px 10px 0px;
+}
+
+.topbar .brand:hover{
+	background-color: transparent;  //overriding boostrap defaults
 }
 
 #time-left{
-	margin:30px auto;
+	margin:10px 0px 30px 0px;
 	text-align:center;
 }
 
@@ -17,9 +24,50 @@ h1:first-child{
 	text-align: center;
 }
 
-.featured-text{
-	margin-top:120px;  //this to be removed when vertical alignment is solved
-	font-size:3em;
+.featured-media{
+	position:absolute;
+	margin:10px;
+}
+
+.featured-area{
+	@include clean-ul;
+	height:300px;
+	border: 1px solid #DDD;
+	@include rounded-corners(4px);
+	
+	li{
+		@include clean-li;
+		line-height:300px;
+		text-align:center;
+		font-size:3.5em;
+	}
+}
+
+.featured-details{
+	float:left;
+	width:100%;
+	margin:-70px 0px; 
+	
+	.featured-details-left{
+		float:left;
+		padding:45px 0px 0px 10px;
+	}
+	.featured-details-right{
+		float:right;
+		padding:0px 15px 0px 0px;
+		
+		.featured-name{
+			font-size:1.4em;
+			line-height:1.4em;
+		}
+		
+		ul{
+			@include clean-ul;
+		}
+		li{
+			@include clean-li;
+		}
+	}
 }
 
 
@@ -29,27 +77,46 @@ h1:first-child{
 	height:500px;
 	border: 1px solid #DDD;
 	@include rounded-corners(4px);
-	overflow:scroll;
-}
-
-.comment{
-	margin:15px 0px;
+	overflow-y:scroll;
+	overflow-x:hidden;
 	
-	.comment-text{
-		font-size:1.1em;
+	.new-comment input.btn{
+		margin:31px 0px 0px 10px;
 	}
 	
-	.comment-user-time{
-		font-style:italic;
+	ul{
+		@include clean-ul;
 	}
 	
+	li{
+		@include clean-li;
+		margin:20px 0px;
+
+		.comment-text{
+			font-size:1.1em;			
+		}
+		.comment-user-time{
+			font-style:italic;
+		}
+	}
 }
 
-#left-sidebar{
+#right-sidebar{
 	height:817px;
-	overflow:scroll;
+	overflow-y:scroll;
+	overflow-x:hidden;
 	border: 1px solid #DDD;
 	@include rounded-corners(4px);
+
+	ul{
+		@include clean-ul;
+	}
+	li{
+		@include clean-li;
+		padding:20px 0px;
+		margin:0px 25px; // without this margin, <li> goes all the way right
+		border-bottom: 1px solid #DDD;
+	}
 }
 
 

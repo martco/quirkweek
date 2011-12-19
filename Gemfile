@@ -8,6 +8,8 @@ gem 'thin'
 
 gem 'pg'
 gem 'haml'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 
 
 # Gems used only for assets and not required
@@ -27,4 +29,5 @@ end
 
 group :test, :development do
   gem 'sqlite3'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end

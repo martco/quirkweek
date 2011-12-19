@@ -1,0 +1,9 @@
+-quirk.comments.each do |c|
+  %li
+    .comment-text
+      =c.text
+    .comment-user-time
+      =c.user.name
+      &nbsp;-&nbsp;
+      =display_time(c)
+      ago

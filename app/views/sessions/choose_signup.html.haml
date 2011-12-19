@@ -1,0 +1,44 @@
+=render 'partials/topbar'
+
+#wrapper.container
+
+  =render 'partials/notification'  #notification on top
+
+  %h1.text-center
+    Choose your way to signup to Quirkweek!
+  
+  .row{:style => "padding:40px 0px"}
+    %h6.text-center
+      Sign in using social accounts
+  
+  .row
+    / facebook & twitter row
+    .offset2
+      .row
+        .span5
+          =link_to image_tag("/assets/connect_fb_sm.png", :size => "239x31"), "/auth/facebook"
+        .span2{:style => "padding-left:10px;"}
+          %h3
+            or
+        =link_to image_tag("/assets/sign_in_twitter.png", :size => "190x36"), "/auth/twitter"
+
+
+  / Create your account row
+  %section{:style => "margin-top:80px;"}
+    .page-header
+  
+  .row{:style => "padding-top:50px;"}
+    %h6.text-center
+      Sign in by creating an account
+
+  .row.text-center{:style => "padding-top:50px"}
+    =link_to "Create an account on Quirkweek", signup_path, {:class => "btn success large"}
+
+  
+  
+  .row
+  / classic login
+  
+  
+  
+

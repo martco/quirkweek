@@ -1,0 +1,42 @@
+.topbar-wrapper{:style => "z-index:5;"}
+  .topbar
+    .topbar-inner
+      .fill
+        .container
+          .brand
+            Quirkweek
+          %ul.nav.secondary-nav
+            -unless current_user
+              %li
+                =link_to "Signup", choose_signup_path
+              %li
+                =link_to "Login", login_path
+                
+          -if current_user
+            %ul.nav.secondary-nav
+              %li
+                =link_to "My Account", account_path
+              %li
+                =link_to "Sign Out", signout_path
+            %p.pull-right
+              Logged in as
+              =link_to "#{current_user.name}", "#"
+
+          / %ul.nav.secondary-nav
+          /   -unless current_user
+          /     %li
+          /       =link_to "Sign in with Twitter", "/auth/twitter"
+          /     %li
+          /       =link_to "Sign in with Facebook", "/auth/facebook"
+          /     %li
+          /       =link_to "Signup", signup_path
+          /     %li
+          /       =link_to "Login", login_path
+          / 
+          / -if current_user
+          /   %ul.nav.secondary-nav
+          /     %li
+          /       =link_to "Sign Out", signout_path
+          /   %p.pull-right
+          /     Logged in as
+          /     =link_to "#{current_user.name}", "#"

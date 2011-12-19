@@ -1,7 +1,20 @@
+=render 'partials/topbar'
+
 #wrapper.container
   
+  =render 'partials/notification'  #notification on top
+  
   %h1.text-center
-    =@mission.title
+    -if @mission
+      =@mission.title
+    -else
+      Currently no mission
+
+  %h5.text-center
+    4 people quirked this week!
+    %br
+    %i
+      Did you?
 
   %h3#time-left
     4 Days, 17 hours, 55 minutes left
@@ -12,54 +25,45 @@
       / Featured content area
       / Help needed with vertically aligning the text
       .row
-        .bordered-table.text-center{:style => "height:300px;"}
-          %tbody
-            %tr
-              %td
-                .featured-text
-                  =@featured_quirk.text
-
+        .featured-media
+          Text | Image | Video
+          
+        %ul.featured-area
+          %li
+            /Lotta text here. Yup, nothing but a lotta text
+            -if @featured_quirk
+              =@featured_quirk.text
+            -else
+              No quirks currently
+          
+        .featured-details
+          .featured-details-left
+            50 likes  &uarr;  &darr;  6  F  T
+          .featured-details-right
+            %ul
+              %li.featured-name
+                -if @featured_quirk
+                  =@featured_quirk.user.username
+              %li
+                Friday, 11:59 pm CST
+              %li
+                Chicago, Illinois, USA
       
       / Comment section
+      / New comment
       .row.comment-section
-      
-        %textarea{:style => "width:400px;" }
-          Temporary textarea placed here..
-        -5.times do
-          .comment
-            .comment-text
-              This is a random visitor comment. He looks around, likes the quirks, watches the content and giggles.
-            .comment-user-time
-              Mark - 25 minutes ago
-      
-          .comment
-            .comment-text
-              Another visitor submission. This is a shorter one.
-            .comment-user-time
-              Clara - less than an hour ago
+        -if @user && @featured_quirk        
+          =render 'new_comment', :user_id => @user.id, :featured_quirk_id => @featured_quirk.id, :comment => @comment
 
-          .comment
-            .comment-text
-              This visitor sp33ks 1337. And he can talk and talk. And talk and talk. He describes his emotions in detail - paying attention to everything.
-            .comment-user-time
-              Anthony - 2 hours ago
+        / Rest of the comments
+        %ul
+          -if @featured_quirk && @featured_quirk.has_comments?
+            =render 'comments', :quirk => @featured_quirk
+            
 
-
-    / This is the left sidebar
+    / This is the right sidebar
     .span-one-third
-      #left-sidebar
-        %table
-          %tbody
-            -10.times do
-              %tr
-                %td
-                  Here is something for the sidebar. Lets see how much text fits here and what does the wrap look like.
-              %tr
-                %td
-                  Omg great content submission! You won't believe it when you see it!
-              %tr
-                %td
-                  A user posts a pic that a lot of people like
+      =render 'right_sidebar'
 
 / Footer
 %footer.footer
