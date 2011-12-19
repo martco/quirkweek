@@ -84,9 +84,11 @@ class User < ActiveRecord::Base
 	end
 	
 	def username_more_letters_than_numbers
-	  letters     = username.gsub(/[^a-zA-Z]/, '').size   # deletes non-letters and counts the rest
-	  non_letters = username.gsub(/[a-zA-Z]/, '').size    # deletes the letters and counts the rest
-	  errors.add(:username, "Username cannot contain more numbers than letters") if non_letters > letters
+	  if username  # if there is no username - gsub throws error
+	    letters     = username.gsub(/[^a-zA-Z]/, '').size   # deletes non-letters and counts the rest
+	    non_letters = username.gsub(/[a-zA-Z]/, '').size    # deletes the letters and counts the rest
+	    errors.add(:username, "Username cannot contain more numbers than letters") if non_letters > letters
+    end
 	end
 	
 	# regular 'helper' method
