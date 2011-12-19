@@ -6,9 +6,7 @@ class SessionsController < ApplicationController
 
     omniauth       = request.env["omniauth.auth"]
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-    redirect_to root_url, :notice => "I successfully came here!"
-  end
-  def nesto  
+  
     if authentication
       sign_in authentication.user      # signs in with basic user
       redirect_to root_url, :notice => "Signed in successfully via #{omniauth['provider'].capitalize}"
@@ -19,9 +17,10 @@ class SessionsController < ApplicationController
     
     else              # this is first social sign-in, basic user has to be created
       user = User.create_from_authentication(omniauth)
+      redirect_to root_url, :notice => "I successfully came here!"
       user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
       sign_in user
-      redirect_to root_url, :notice => "Successful authentication via #{omniauth['provider'].capitalize}"
+      #redirect_to root_url, :notice => "Successful authentication via #{omniauth['provider'].capitalize}"
     end
   end
 
