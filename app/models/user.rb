@@ -152,51 +152,37 @@ class User < ActiveRecord::Base
   # methods for integrating with social accounts
   
   def self.create_from_authentication(omniauth)
-    dummy_password = SecureRandom.hex(5) + "0"   # dummy password just that user validation can pass
+    dummy_password = SecureRandom.hex(5) + "A0"   # dummy password just that user validation can pass
+    username       = Array.new(10) { (rand(122-97) + 97).chr }.join  
+    # makes unique 10-char random string
+    # facebook may not have username so cannot take the omniauth['info']['nickname'] from omniauth response
+    
+    
+    if omniauth['provider'] == 'twitter'
+      defined? omniauth['info']['nickname']   ? name = omniauth['info']['nickname']   : name = "NoName"
 
-    if omniauth['provider'] == 'twitter'        # twitter # add checks if data exists here
-      name = omniauth['info']['nickname']
-    elsif omniauth['provider'] == 'facebook'    # facebook
-      name = omniauth['info']['first_name']
+    elsif omniauth['provider'] == 'facebook'
+      defined? omniauth['info']['first_name'] ? name = omniauth['info']['first_name'] : name = "NoName"
+
+    else      # unknown omniauth authorization
+      name = "NoName"
     end
-    username = Array.new(10) { (rand(122-97) + 97).chr }.join  # makes unique 10-char-long random string
-                 # facebook may not have username so cannot take the string from social network response
-    user = User.new(:name                  => name,             #twitter username or facebook first name
-                :username              => username,
-                :just_social           => true,
-                :password              => dummy_password, 
-                :password_confirmation => dummy_password)
-    if user.valid?
-      user.save
-      return user
-    else
-      user.name = "Whatever"
-      user.username = "validusr" + SecureRandom.hex(3)
-      user.save
-      return user
-    end
-             
+    
+    User.create(:name                  => name,
+                    :username              => username,
+                    :just_social           => true,
+                    :password              => dummy_password, 
+                    :password_confirmation => dummy_password)
+
+    # if user.valid?
+    #   user.save
+    # else
+    #   user.name = "Whatever"
+    #   user.save
+    # end
+    # 
+    # return user
   end
-
-  # this method is now obsolete. To be deleted
-  # def self.make_valid_username(username)  # every return adds random hex so username should always be unique
-  #   if username.length > 11
-  #     username = username[0..11]
-  #   elsif username.length < 6
-  #     username = username.ljust(6,'abcd') #fills up username up to 6 chars
-  #   end
-  #   return (username + SecureRandom.hex(2))   # adds 4 unique character for username at the end
-  # end
-
-  # this method is now obsolete. To be deleted
-  # def self.make_valid_name(name)
-  #   if name.length > 30
-  #     name = name[0..29]         # cutts of name to be 30 chars long
-  #   elsif name.length < 4
-  #     name = name.ljust(4, 'abcd')  # fills up name up to 4 characters
-  #   end
-  #   return name
-  # end
   
 end
 # == Schema Information
