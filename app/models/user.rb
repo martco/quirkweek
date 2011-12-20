@@ -159,16 +159,24 @@ class User < ActiveRecord::Base
     
     
     if omniauth['provider'] == 'twitter'
-      defined? omniauth['info']['nickname']   ? name = omniauth['info']['nickname']   : name = "NoName"
+      if defined?(omniauth['info']['nickname'])
+        name = omniauth['info']['nickname']
+      else
+        name = "NoName"
+      end
 
     elsif omniauth['provider'] == 'facebook'
-      defined? omniauth['info']['first_name'] ? name = omniauth['info']['first_name'] : name = "NoName"
+      if defined?(omniauth['info']['first_name'])
+        name = omniauth['info']['first_name']
+      else
+        name = "NoName"
+      end
 
     else      # unknown omniauth authorization
       name = "NoName"
     end
     
-    User.create(:name                  => name,
+    User.create(:name => name,
                     :username              => username,
                     :just_social           => true,
                     :password              => dummy_password, 
