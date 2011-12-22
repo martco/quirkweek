@@ -19,6 +19,15 @@
               =f.text_field :username
               %span.help-inline
                 =first_error 'username'
+
+          -email_error = print_error 'email'
+          .clearfix{:class => "#{ email_error }"}
+            =label :email, "E-mail"
+            .input
+              =f.text_field :email
+              %span.help-inline
+                =first_error 'email'
+
               
           -password_error = print_error 'password'
           .clearfix{:class => "#{ password_error }"}

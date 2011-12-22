@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
         sign_in user
         redirect_to root_url, :notice => "Successful authentication via #{omniauth['provider'].capitalize}"
       else
-        redirect_to root_url, :alert => "Unsuccessful user creation! #{user.valid?}, #{user.errors.first}"
+        redirect_to root_url, :alert => "Unsuccessful user creation! Error: #{user.errors.first}"
       end
       
     end

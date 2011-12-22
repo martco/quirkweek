@@ -182,6 +182,7 @@ class User < ActiveRecord::Base
                     :password              => dummy_password, 
                     :password_confirmation => dummy_password)
 
+    ### The below is to be deleted
     # if user.valid?
     #   user.save
     # else

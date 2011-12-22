@@ -25,14 +25,14 @@
             -if current_user.has_authentication?('twitter')
               Available
             -else
-              =link_to "Add", "/auth/twitter"
+              =link_to "Twitter connect", "/auth/twitter"
               
           .row
             Facebook: &nbsp;
             -if current_user.has_authentication?('facebook')
               Available
             -else
-              =link_to "Add", "/auth/facebook"
+              =link_to "Facebook connect", "/auth/facebook"
               
           .row  
             Username & password: &nbsp;
