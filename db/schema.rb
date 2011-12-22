@@ -55,9 +55,13 @@ ActiveRecord::Schema.define(:version => 20111217083754) do
     t.string   "name"
     t.string   "username"
     t.string   "email"
-    t.boolean  "just_social",     :default => false
+    t.boolean  "just_social",        :default => false
     t.string   "hashed_password"
     t.string   "salt"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

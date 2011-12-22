@@ -5,8 +5,8 @@
         .container
           .brand
             Quirkweek
-          %ul.nav.secondary-nav
-            -unless current_user
+          -unless current_user
+            %ul.nav.secondary-nav
               %li
                 =link_to "Sign Up", choose_signup_path
               %li
@@ -14,6 +14,8 @@
                 
           -if current_user
             %ul.nav.secondary-nav
+              %li.user-photo
+                =image_tag current_user.photo, :size => "30x30"
               %li
                 =link_to "My Account", account_path
               %li
@@ -21,22 +23,3 @@
             %p.pull-right
               Logged in as
               =link_to "#{current_user.name}", "#"
-
-          / %ul.nav.secondary-nav
-          /   -unless current_user
-          /     %li
-          /       =link_to "Sign in with Twitter", "/auth/twitter"
-          /     %li
-          /       =link_to "Sign in with Facebook", "/auth/facebook"
-          /     %li
-          /       =link_to "Signup", signup_path
-          /     %li
-          /       =link_to "Login", login_path
-          / 
-          / -if current_user
-          /   %ul.nav.secondary-nav
-          /     %li
-          /       =link_to "Sign Out", signout_path
-          /   %p.pull-right
-          /     Logged in as
-          /     =link_to "#{current_user.name}", "#"

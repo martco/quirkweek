@@ -11,6 +11,8 @@ gem 'haml'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'profanity_filter'
+gem 'paperclip'
+gem 'rmagick'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,8 @@
+@import "mixins";
+.user-photo{
+
+	img{
+		@include rounded-corners(3px);
+		margin:6px 6px 0px 6px;
+	}
+}

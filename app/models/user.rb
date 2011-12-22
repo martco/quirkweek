@@ -16,6 +16,21 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessor :password_confirmation
   
+  has_attached_file :photo, :styles          => {:original => ["50x", :jpg]},       # this resizes to width of 50px
+	                          :convert_options => { :original => '-crop 50x50+0+0'},  # this cropps to dimensions of 50x50 px
+	                          :url             => "/assets/user_photos/:style/photo:id.:extension",
+	                          :path            => ":rails_root/assets/user_photos/:style/photo:id.:extension",
+	                          :default_url     => "/assets/default_user_photo.jpg"
+	                          
+	                          #:storage => :s3,
+	                          #:s3_credentials => "#{Rails.root}/config/s3.yml",
+	                          #:path => ":attachment/:id/img.:extension",  #path: photo/34/img.png,
+	                          #:bucket => 'choose bucket'
+
+	
+  #validates_attachment_size :photo, :less_than => 2.megabytes, :message => "The photo has to be smaller than 2Mb"
+  #validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/gif'], :message => "The photo has to be jpg, gif or png"
+  
   
 	EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 	USERNAME_REGEX = /^[A-Z0-9]+$/i
@@ -50,7 +65,7 @@ class User < ActiveRecord::Base
 	validate                  :password_confirmation_must_be_present
 	validates_confirmation_of :password, :message => "Sorry, your passwords do not match.", :if => :password_should_change
 	
-	before_save :create_hashed_password  , :downcase_email
+	before_save :create_hashed_password, :downcase_email
 	after_save  :clear_password
 	
   attr_protected :hashed_password, :salt
