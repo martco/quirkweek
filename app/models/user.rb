@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   
   
-	#EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+	EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 	USERNAME_REGEX = /^[A-Z0-9]+$/i
 	PASSWORD_REGEX = /^[A-Z0-9]+$/i
 	PASSWORD_CHARACTER_REGEX = /[A-Z]/i
@@ -34,11 +34,10 @@ class User < ActiveRecord::Base
   validate                :username_must_not_be_vulgar
   validate                :username_more_letters_than_numbers
 	
-	# validates_presence_of   :email, :message => "Enter an email"
-	# validates_uniqueness_of :email, :message => "This email is already taken"
-	# validates_length_of     :email, :maximum => 50, :message => "Email should be less than 50 characters long"
-	# 
-	# validates_format_of :email, :with => EMAIL_REGEX, :message => "Enter a valid email format"
+  validates_presence_of   :email, :message => "Please enter an email."
+  validates_uniqueness_of :email, :message => "This email is already taken."
+  validates_length_of     :email, :maximum => 50, :message => "Sorry, your email must be no more than 50 characters long."
+  validates_format_of     :email, :with => EMAIL_REGEX, :message => "Sorry, email format is not correct."
 	
 	validate            :password_must_be_present
 	validate            :password_not_equal_to_username
@@ -127,9 +126,9 @@ class User < ActiveRecord::Base
     hashed_password == User.hash_with_salt(password, salt)
   end
   
-  # def downcase_email
-  #   self.email = self.email.downcase
-  # end
+  def downcase_email
+    self.email = self.email.downcase
+  end
 
 
   private
