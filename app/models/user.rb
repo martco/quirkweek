@@ -65,6 +65,8 @@ class User < ActiveRecord::Base
 	validate                  :password_confirmation_must_be_present
 	validates_confirmation_of :password, :message => "Sorry, your passwords do not match.", :if => :password_should_change
 	
+	validate    :just_one_network_for_social_account # is user has just facebook authentication, cannot have twitter (and vice versa)
+	
 	before_save :create_hashed_password, :downcase_email
 	after_save  :clear_password
 	
@@ -103,6 +105,12 @@ class User < ActiveRecord::Base
 	    non_letters = username.gsub(/[a-zA-Z]/, '').size    # deletes the letters and counts the rest
 	    errors.add(:username, "Sorry, a username cannot contain more numbers than letters.") if non_letters > letters
     end
+	end
+	
+	def just_one_network_for_social_account
+	  if just_social && authentications.count > 1 # account is just_social and now trying to add another authentication
+	    errors.add(:just_social, "Sorry, you have to create quirkweek account before adding another social network.")
+	  end
 	end
 	
 	# regular 'helper' method
@@ -212,12 +220,18 @@ end
 #
 # Table name: users
 #
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  email           :string(255)
-#  hashed_password :string(255)
-#  salt            :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  username           :string(255)
+#  email              :string(255)
+#  just_social        :boolean         default(FALSE)
+#  hashed_password    :string(255)
+#  salt               :string(255)
+#  photo_file_name    :string(255)
+#  photo_content_type :string(255)
+#  photo_file_size    :integer
+#  photo_updated_at   :datetime
+#  created_at         :datetime
+#  updated_at         :datetime
 #
 
