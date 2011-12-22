@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
 	  end
 	end
 	
-	# regular 'helper' method
+	# regular 'helper' method 
 	def first_name
 	  self.name.split[0].capitalize
 	end
