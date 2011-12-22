@@ -65,8 +65,6 @@ class User < ActiveRecord::Base
 	validate                  :password_confirmation_must_be_present
 	validates_confirmation_of :password, :message => "Sorry, your passwords do not match.", :if => :password_should_change
 	
-	validate    :just_one_network_for_social_account # is user has just facebook authentication, cannot have twitter (and vice versa)
-	
 	before_save :create_hashed_password, :downcase_email
 	after_save  :clear_password
 	
