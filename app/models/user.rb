@@ -179,7 +179,7 @@ class User < ActiveRecord::Base
     # makes unique 10-char random string
     # facebook may not have username so cannot take the omniauth['info']['nickname'] from omniauth response
     
-    
+    # twitter name
     if omniauth['provider'] == 'twitter'
       if defined?(omniauth['info']['nickname'])
         name = omniauth['info']['nickname']
@@ -187,22 +187,33 @@ class User < ActiveRecord::Base
         name = "NoName"
       end
 
+    # facebook name
     elsif omniauth['provider'] == 'facebook'
       if defined?(omniauth['info']['first_name'])
         name = omniauth['info']['first_name']
       else
         name = "NoName"
       end
-
-    else      # unknown omniauth authorization
+      
+    # unknown omniauth authorization
+    else
       name = "NoName"
+    end
+
+
+    #email
+    if defined?(omniauth['info']['email'])
+      email = omniauth['info']['email']
+    else
+      email = "dummy" + SecureRandom.hex(2) + "@email.com"
     end
     
     User.create(:name => name,
-                    :username              => username,
-                    :just_social           => true,
-                    :password              => dummy_password, 
-                    :password_confirmation => dummy_password)
+                :username              => username,
+                :email                 => email,
+                :just_social           => true,
+                :password              => dummy_password, 
+                :password_confirmation => dummy_password)
 
     ### The below is to be deleted
     # if user.valid?
