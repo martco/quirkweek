@@ -24,13 +24,13 @@ class User < ActiveRecord::Base
 	PASSWORD_NUMBER_REGEX = /[0-9]/i
 
 
-	validates_presence_of   :name, :message => "Enter your name"
+	validates_presence_of   :name, :message => "Please create a name."
 	#validates_length_of     :name, :within => 4..30, :message => "Name should be between 4 and 30 characters long."
 	
-	validates_presence_of   :username, :message => "Enter your username"
-	validates_uniqueness_of :username, :message => "This username is already taken"
-	validates_format_of     :username, :with   => USERNAME_REGEX, :message => "Username can contain only letters and numbers"
-	validates_length_of     :username, :within => 6..15, :message => "Should be between 6 and 15 characters long"
+	validates_presence_of   :username, :message => "Please create a username."
+	validates_uniqueness_of :username, :message => "Sorry, that username is already taken."
+	validates_format_of     :username, :with   => USERNAME_REGEX, :message => "Sorry, a username may contain only letters and numbers."
+	validates_length_of     :username, :within => 6..15, :message => "Sorry, a username must be between 6 and 15 characters long."
   validate                :username_must_not_be_vulgar
   validate                :username_more_letters_than_numbers
 	
@@ -41,16 +41,16 @@ class User < ActiveRecord::Base
 	
 	validate            :password_must_be_present
 	validate            :password_not_equal_to_username
-	validates_length_of :password, :minimum => 6,  :message => "Password minimum is 6 characters", :allow_nil => true  #allow_nil is here for a reason
-	validates_length_of :password, :maximum => 15, :message => "Password maximum is 15 characters", :allow_nil => true  #allow_nil is here for a reason
-	validates_format_of :password, :with    => PASSWORD_REGEX,           :message => "Password can contain only letters and numbers", :if => :password_should_change
-	validates_format_of :password, :with    => PASSWORD_CHARACTER_REGEX, :message => "Password needs to include at least one letter", :if => :password_should_change
-	validates_format_of :password, :with    => PASSWORD_NUMBER_REGEX,    :message => "Password needs to include at least one number", :if => :password_should_change
+	validates_length_of :password, :minimum => 6,  :message => "Sorry, your password must be at least 6 characters long.", :allow_nil => true  #allow_nil is here for a reason
+	validates_length_of :password, :maximum => 15, :message => "Sorry, your password must be no more than 15 characters long.", :allow_nil => true  #allow_nil is here for a reason
+	validates_format_of :password, :with    => PASSWORD_REGEX,           :message => "Sorry, your password may contain only letters and numbers.", :if => :password_should_change
+	validates_format_of :password, :with    => PASSWORD_CHARACTER_REGEX, :message => "Sorry, your password needs to include at least one letter.", :if => :password_should_change
+	validates_format_of :password, :with    => PASSWORD_NUMBER_REGEX,    :message => "Sorry, your password needs to include at least one number.", :if => :password_should_change
 	
 	validate                  :password_confirmation_must_be_present
-	validates_confirmation_of :password, :message => "Passwords do not match", :if => :password_should_change
+	validates_confirmation_of :password, :message => "Sorry, your passwords do not match.", :if => :password_should_change
 	
-	before_save :create_hashed_password  #, :downcase_email
+	before_save :create_hashed_password  , :downcase_email
 	after_save  :clear_password
 	
   attr_protected :hashed_password, :salt
@@ -58,15 +58,15 @@ class User < ActiveRecord::Base
 	# validation methods	
 	def password_must_be_present
 	  if password_confirmation.present?
-	    errors.add(:password, "Missing password") unless password.present? # error on password update
+	    errors.add(:password, "Password missing!") unless password.present? # error on password update
 	  else
-	    errors.add(:password, "Missing password") unless hashed_password.present? || password.present? # error on user creation
+	    errors.add(:password, "Password missing!") unless hashed_password.present? || password.present? # error on user creation
 	  end
 	end
 	
 	def password_confirmation_must_be_present
 	  if password.present?
-	    errors.add(:password, "Missing password confirmation") unless password_confirmation.present?
+	    errors.add(:password, "Please re-type your password for confirmation.") unless password_confirmation.present?
 	  end
 	end
 	
@@ -75,18 +75,18 @@ class User < ActiveRecord::Base
 	end
 	
 	def password_not_equal_to_username
-	  errors.add(:password, "Password cannot be the same as username") if password.present? && password == username
+	  errors.add(:password, "Sorry, your password cannot be the same as your username.") if password.present? && password == username
 	end
 	
 	def username_must_not_be_vulgar
-	  errors.add(:username, "Username must not be vulgar") if ProfanityFilter::Base.profane?(username)
+	  errors.add(:username, "Sorry, that username violates our Terms of Service. Please create another.") if ProfanityFilter::Base.profane?(username)
 	end
 	
 	def username_more_letters_than_numbers
 	  if username                                         # if there is no username - gsub throws error
 	    letters     = username.gsub(/[^a-zA-Z]/, '').size   # deletes non-letters and counts the rest
 	    non_letters = username.gsub(/[a-zA-Z]/, '').size    # deletes the letters and counts the rest
-	    errors.add(:username, "Username cannot contain more numbers than letters") if non_letters > letters
+	    errors.add(:username, "Sorry, a username cannot contain more numbers than letters.") if non_letters > letters
     end
 	end
 	
