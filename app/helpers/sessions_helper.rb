@@ -21,7 +21,7 @@ module SessionsHelper
   end
   
   def signed_in?
-    cookie_id ? true : false
+    cookie_id && user_exists? ? true : false
   end
   
   def user_exists?
