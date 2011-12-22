@@ -107,11 +107,6 @@ class User < ActiveRecord::Base
     end
 	end
 	
-	def just_one_network_for_social_account
-	  if just_social && authentications.count > 1 # account is just_social and now trying to add another authentication
-	    errors.add(:just_social, "Sorry, you have to create quirkweek account before adding another social network.")
-	  end
-	end
 	
 	# regular 'helper' method 
 	def first_name

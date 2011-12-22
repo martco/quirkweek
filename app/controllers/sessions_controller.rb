@@ -12,9 +12,12 @@ class SessionsController < ApplicationController
       redirect_to root_url, :notice => "Signed in successfully via #{omniauth['provider'].capitalize}"
     
     elsif signed_in?  # basic user exists, just add new authentication
-      current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
-      redirect_to account_path, :notice => "Successfully added authentication!"
-    
+      if current_user.just_social
+        redirect_to account_path, :alert => "You cannot add another social network before authenticating with username & password."
+      else
+        current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+        redirect_to account_path, :notice => "Successfully added authentication!"
+      end
     else              # this is first social sign-in, basic user has to be created
       user = User.create_from_authentication(omniauth)
       if user.valid?
