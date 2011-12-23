@@ -111,8 +111,11 @@ class User < ActiveRecord::Base
 	end
 	
 	def birthdate_user_is_13_years_old
-	  errors.add(:birthdate, "Sorry, you must be at least 13 years old to sign up.") if birthdate > 13.years.ago
+	  errors.add(:birthdate, "Sorry, you must be at least 13 years old to sign up.") if birthdate && birthdate > 13.years.ago
 	end
+	
+	# validation methods above
+	
 	
 	# regular 'helper' method 
 	def first_name

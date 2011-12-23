@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
         else
           redirect_to account_path, :alert => "You cannot add two #{omniauth['provider'].capitalize} accounts."
         end
-      end 
+      end
 
     else              # this is first social sign-in, basic user has to be created
       user = User.create_from_authentication(omniauth)
