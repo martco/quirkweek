@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20111217083754) do
     t.boolean  "just_social",        :default => false
     t.string   "hashed_password"
     t.string   "salt"
+    t.datetime "birthdate"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"

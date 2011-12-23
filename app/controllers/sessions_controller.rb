@@ -15,8 +15,12 @@ class SessionsController < ApplicationController
       if current_user.just_social
         redirect_to account_path, :alert => "You cannot add another social network before authenticating with username & password."
       else
-        current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
-        redirect_to account_path, :notice => "Successfully added authentication!"
+        unless current_user.has_authentication?(omniauth['provider'])
+          current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
+          redirect_to account_path, :notice => "Successfully added authentication!"
+        else
+          redirect_to account_path, :alert => "You cannot add two #{omniauth['provider'].capitalize} accounts."
+        end
       end
 
     else              # this is first social sign-in, basic user has to be created

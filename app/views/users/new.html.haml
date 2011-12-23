@@ -28,7 +28,17 @@
               %span.help-inline
                 =first_error 'email'
 
-              
+          -birthdate_error = print_error 'birthdate'
+          .clearfix{:class => "#{ birthdate_error }"}
+            =label :birthdate, "Birthdate"
+            .input.birthdate-select
+              =f.date_select :birthdate, :start_year => Time.now.year, :end_year => (Time.now.year - 60), :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }              
+              %span.help-inline
+                =first_error 'birthdate'
+              / Exclamation mark shows up if one of the fields is not selected (jquery)
+              %span#js-bang-birthdate  
+                &nbsp;!
+
           -password_error = print_error 'password'
           .clearfix{:class => "#{ password_error }"}
             =label :password, "Password"
@@ -45,7 +55,7 @@
           .clearfix
             .row
               .offset3
-                =f.submit "Create account", {:class => "btn"}
+                =f.submit "Create account", {:id => "new-user-button", :class => "btn"}
                 
   .row{:style => 'padding:30px 0px 0px 20px;'}
     .offset4<

@@ -1,0 +1,26 @@
+$("document").ready(function() {
+ 
+  $("#new-user-button").click(function(){
+    if ( check_birthdate_fields() ){   // function returns true
+      return false                     // click event is broken
+    }
+  })
+  
+})
+
+function check_birthdate_fields()
+{
+
+  $("#js-bang-birthdate").css("visibility", "hidden")   // needed in case select boxes are changed
+                                                        // and submit is pressed again
+                                                        
+  if( $("#user_birthdate_2i").children(":selected").val() === "" ||
+      $("#user_birthdate_3i").children(":selected").val() === "" ||
+      $("#user_birthdate_1i").children(":selected").val() === "" ) {  // all of the fields were not selected
+        $("#js-bang-birthdate").css("visibility", "visible")          // the button is not clicked
+        return true
+  } else {  
+        return false   // no errors - the button is clicked
+  }
+
+}

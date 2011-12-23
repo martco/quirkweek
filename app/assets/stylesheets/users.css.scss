@@ -2,6 +2,29 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// Rails adds div when there is an error with field. This disables the negative effect.
 .field_with_errors{
 	display:inline;
+}
+
+.birthdate-select{
+	select:nth-child(1){
+		width:70px;
+	}
+
+	select:nth-child(2){
+		width:70px;
+	}
+
+	select:nth-child(3){
+		width:70px;
+	}
+}
+
+//css for an exclamation mark that shows when birthdate is not selected
+#js-bang-birthdate{
+	font-size:15px;
+	font-weight:bold;
+	color:red;
+	visibility:hidden;
 }

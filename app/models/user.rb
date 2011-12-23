@@ -65,6 +65,11 @@ class User < ActiveRecord::Base
 	validate                  :password_confirmation_must_be_present
 	validates_confirmation_of :password, :message => "Sorry, your passwords do not match.", :if => :password_should_change
 	
+	validates_presence_of :birthdate, :message => "Please enter a birthdate."
+	validate              :birthdate_user_is_13_years_old
+	
+	# end of validations
+	
 	before_save :create_hashed_password, :downcase_email
 	after_save  :clear_password
 	
@@ -105,6 +110,9 @@ class User < ActiveRecord::Base
     end
 	end
 	
+	def birthdate_user_is_13_years_old
+	  errors.add(:birthdate, "Sorry, you must be at least 13 years old to sign up.") if birthdate > 13.years.ago
+	end
 	
 	# regular 'helper' method 
 	def first_name
@@ -195,15 +203,18 @@ class User < ActiveRecord::Base
 
 
     #email
-    if defined?(omniauth['info']['email'])
-      email = omniauth['info']['email']
-    else
-      email = "dummy" + SecureRandom.hex(2) + "@email.com"
-    end
-    
+    #if defined?(omniauth['info']['email'])
+     # email = omniauth['info']['email']
+    #else
+      email = "dummyEmail" + SecureRandom.hex(4) + "@email.com"  # email is hardcoded right now!
+                                                                 # twitter does not provide email info!!
+    #end
+    birthdate = 20.years.ago           #hardcoded for now
+      
     User.create(:name => name,
                 :username              => username,
                 :email                 => email,
+                :birthdate             => birthdate,
                 :just_social           => true,
                 :password              => dummy_password, 
                 :password_confirmation => dummy_password)

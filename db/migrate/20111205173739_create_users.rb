@@ -7,7 +7,8 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean "just_social", :default => false
       t.string "hashed_password"
       t.string "salt"
-
+      t.datetime "birthdate"
+      
       #user.photo
       t.string "photo_file_name"
       t.string "photo_content_type"

@@ -24,17 +24,21 @@
             Twitter: &nbsp;
             -if current_user.has_authentication?('twitter')
               Available
-            -else
+            -elsif not current_user.just_social
               =link_to "Twitter connect", "/auth/twitter"
+            -else
+              Twitter connect (this link will be worked on)
               
           .row
             Facebook: &nbsp;
             -if current_user.has_authentication?('facebook')
               Available
-            -else
+            -elsif not current_user.just_social
               =link_to "Facebook connect", "/auth/facebook"
+            -else
+              Facebook connect (this link will be worked on)
               
-          .row  
+          .row
             Username & password: &nbsp;
             -if ! current_user.just_social
               Available
