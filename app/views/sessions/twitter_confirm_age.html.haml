@@ -1,0 +1,28 @@
+=render 'partials/topbar'
+
+#wrapper.container
+
+  =render 'partials/notification'  #notification on top
+
+  %h1.text-center
+    Please enter your birthdate
+    
+  .row
+    .span12.offset4
+      =form_tag :action => 'create_twitter_user' do
+        %fieldset
+        
+          .clearfix
+            =label :birthdate, "Birthdate"
+            .input.birthdate-select
+              =date_select :user, :birthdate, :start_year => Time.now.year, :end_year => (Time.now.year - 60), :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }              
+              
+              / Exclamation mark shows up if one of the fields is not selected (jquery)
+              %span#js-bang-birthdate  
+                &nbsp;!
+          =hidden_field_tag 'omniauth', @twitter_info
+          
+          .clearfix
+            .row
+              .offset3
+                =submit_tag "Create account", {:id => "new-user-button", :class => "btn"}

@@ -177,7 +177,7 @@ class User < ActiveRecord::Base
 
   # methods for integrating with social accounts
   
-  def self.create_from_authentication(omniauth)
+  def self.create_from_authentication(omniauth, birthdate)
     dummy_password = SecureRandom.hex(5) + "A0"   # dummy password just that user validation can pass
     username       = Array.new(10) { (rand(122-97) + 97).chr }.join  
     # makes unique 10-char random string
@@ -204,15 +204,11 @@ class User < ActiveRecord::Base
       name = "NoName"
     end
 
-
-    #email
-    #if defined?(omniauth['info']['email'])
-     # email = omniauth['info']['email']
-    #else
-      email = "dummyEmail" + SecureRandom.hex(4) + "@email.com"  # email is hardcoded right now!
-                                                                 # twitter does not provide email info!!
-    #end
-    birthdate = 20.years.ago           #hardcoded for now
+    # email is hardcoded right now!
+    # twitter does not provide email info!!
+    email = "dummyEmail" + SecureRandom.hex(4) + "@email.com"  
+  
+    #birthdate = 20.years.ago           #hardcoded for now
       
     User.create(:name => name,
                 :username              => username,
@@ -222,15 +218,6 @@ class User < ActiveRecord::Base
                 :password              => dummy_password, 
                 :password_confirmation => dummy_password)
 
-    ### The below is to be deleted
-    # if user.valid?
-    #   user.save
-    # else
-    #   user.name = "Whatever"
-    #   user.save
-    # end
-    # 
-    # return user
   end
   
 end
