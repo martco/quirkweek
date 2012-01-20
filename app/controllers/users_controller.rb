@@ -20,9 +20,11 @@ class UsersController < ApplicationController
   end
   
   def account
+    @title = "My account"
   end
   
   def password_authentication
+    @title = "Add password authentication"
     @user = current_user
   end
   
@@ -32,6 +34,7 @@ class UsersController < ApplicationController
       @user.update_attributes(:just_social => false)
       redirect_to account_path, :notice => "Your profile has been updated"
     else
+      @title = "Add password authentication"
       render 'password_authentication', :alert => "Error - user not updated"
     end
   end

@@ -99,7 +99,18 @@ class User < ActiveRecord::Base
 	end
 	
 	def username_must_not_be_vulgar
-	  errors.add(:username, "Sorry, that username violates our Terms of Service. Please create another.") if ProfanityFilter::Base.profane?(username)
+	  length = username.length
+	  length2 = length - 2
+	  for i in (0..length2)   # start position
+	    number = length - i   # maximum length of substring
+	    for j in (2..number)  # length of the substring
+	      if ProfanityFilter::Base.profane?(username[i,j])  # checks if the substring is vulgar
+	        errors.add(:username, "Sorry, that username violates our Terms of Service. Please create another.")
+	        return true        # check if this is a good return
+        end
+      end
+    end
+	  #errors.add(:username, "Sorry, that username violates our Terms of Service. Please create another.") if ProfanityFilter::Base.profane?(username)
 	end
 	
 	def username_more_letters_than_numbers
