@@ -35,7 +35,8 @@ class UsersController < ApplicationController
       redirect_to account_path, :notice => "Your profile has been updated"
     else
       @title = "Add password authentication"
-      render 'password_authentication', :alert => "Error - user not updated"
+      flash.now[:alert] = "Error - user not updated"
+      render 'password_authentication'
     end
   end
   

@@ -27,7 +27,8 @@
             -elsif not current_user.just_social
               =link_to "Twitter connect", "/auth/twitter"
             -else
-              Twitter connect (this link will be worked on)
+              %span.unclickable-social
+                Twitter connect
               
           .row
             Facebook: &nbsp;
@@ -36,7 +37,8 @@
             -elsif not current_user.just_social
               =link_to "Facebook connect", "/auth/facebook"
             -else
-              Facebook connect (this link will be worked on)
+              %span.unclickable-social
+                Facebook connect
               
           .row
             Username & password: &nbsp;

@@ -1,6 +1,6 @@
 #notification-area
   -flash.each do |key, msg|
-    =content_tag :div, content_tag(:div, msg), :class => ["#{key}"], :style => "top:25px; font-size:11px;"
+    =content_tag :div, content_tag(:div, msg), :class => ["#{key}"]
     :javascript
       $("document").ready(function() {
         $(".#{key}").delay(5000).fadeOut(500)

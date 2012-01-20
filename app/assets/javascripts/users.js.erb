@@ -1,10 +1,21 @@
 $("document").ready(function() {
  
+ 
+ // create user form
+ 
   $("#new-user-button").click(function(){
     if ( check_birthdate_fields() ){   // function returns true
       return false                     // click event is broken
     }
   })
+  
+  
+  // methods for my account
+ $(".unclickable-social").click(function(){
+   display_non_clickable_alert();
+ })
+ 
+  
   
 })
 
@@ -23,4 +34,10 @@ function check_birthdate_fields()
         return false   // no errors - the button is clicked
   }
 
+}
+
+//adds notification and fades it out after 5 seconds
+function display_non_clickable_alert() {
+  $("#notification-area").html("<div class='alert'><div>Sorry, you need a Quirkweek account to do that!</div></div>");
+  $(".alert").delay(5000).fadeOut(500)
 }
