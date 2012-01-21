@@ -46,3 +46,11 @@
               Available
             -else
               =link_to "Add", password_authentication_path
+              
+      .row
+        .span10{:style => "margin-left:10px; margin-top:20px;"}
+          %h5
+            Options
+
+          .row
+            =link_to "Delete account", users_path, :method => :delete, :class => "btn danger"

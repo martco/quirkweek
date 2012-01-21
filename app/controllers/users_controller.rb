@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  
+
   def new      #get signup
     @title = "Sign up"
     @user = User.new
@@ -38,6 +40,13 @@ class UsersController < ApplicationController
       flash.now[:alert] = "Error - user not updated"
       render 'password_authentication'
     end
+  end
+  
+  def destroy
+    @user = current_user
+    sign_out
+    @user.destroy
+    redirect_to root_path, :notice => "Your account has been deleted."
   end
   
 end
