@@ -15,6 +15,13 @@ h1:first-child{
 	background-color: transparent;  //overriding boostrap defaults
 }
 
+#quirkweek-brand{
+	color:white;
+	a:hover{
+		text-decoration:none;
+	}
+}
+
 #time-left{
 	margin:10px 0px 30px 0px;
 	text-align:center;
