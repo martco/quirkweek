@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
 
   include ProfanityFilter
 
+  # quick and dirty hack to change Profanity Filter dictionary to local file
+  class Example < ProfanityFilter::Base
+    @@dictionary_file = File.join(Rails.root, 'config/dictionary.yml')
+  end
+
   has_many :users_missions, :dependent => :destroy,
                             :order     => "created_at DESC"
 
