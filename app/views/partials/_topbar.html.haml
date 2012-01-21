@@ -3,8 +3,8 @@
     .topbar-inner
       .fill
         .container
-          .brand#quirkweek-brand
-            =link_to "Quirkweek", root_path
+          .brand
+            =link_to "Quirkweek", root_path, :style => "color: white;"
           -unless current_user
             %ul.nav.secondary-nav
               %li
