@@ -5,10 +5,16 @@ class UsersController < ApplicationController
   def new      #get signup
     @title = "Sign up"
     @user = User.new
+    @new_modal_user = User.new
   end
 
   def create    #post signup
-    @user = User.new(params[:user])
+    if params[:user]                     # enables the same method to handle both standard and modal user creation
+      @user = User.new(params[:user])
+    else
+      @user = User.new(params[:new_modal_user])
+    end
+      
     @user.name = @user.username  # assigning the [username] to be user username
     if @user.valid?
       @user.save
@@ -16,6 +22,7 @@ class UsersController < ApplicationController
       redirect_to root_path, :notice => "Hello, welcome to Quirkweek!"
     else
       @title = "Sign up"
+      @new_modal_user = User.new
       flash.now[:alert] = "Wrong input"
       render 'new'
     end

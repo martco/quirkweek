@@ -11,6 +11,7 @@ Quirkweek::Application.routes.draw do
     
   get "signup"                      => "users#new"
   post "signup"                     => "users#create"
+  put "signup"                      => "users#create"
   delete "users"                    => "users#destroy"
   
   get "password_authentication"     => "users#password_authentication"

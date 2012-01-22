@@ -1,0 +1,39 @@
+$("document").ready(function() {
+
+// modal setups
+  
+  $("#choose-signup-modal").modal({
+    keyboard: true,
+    backdrop: true
+  });
+
+  $("#login-modal").modal({
+    keyboard: true,
+    backdrop: true
+  });
+
+  $("#create-account-modal").modal({
+    keyboard: true,
+    backdrop: true
+  });
+
+
+// trigger modals events
+
+  $("#choose-signup-link").click(function(){
+    $("#choose-signup-modal").modal('show');
+    return false;
+  });
+
+  $("#login-link").click(function(){
+    $("#login-modal").modal('show');
+    return false;
+  });
+
+  $("#new-account-link").click(function(){
+    $("#choose-signup-modal").modal('hide');
+    $("#create-account-modal").modal('show');
+    return false;
+  });
+
+})

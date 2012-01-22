@@ -40,6 +40,9 @@ class SessionsController < ApplicationController
   def twitter_confirm_age(omniauth)
     @twitter_info = omniauth.to_yaml   #serializes omniauth object
     @title = "confirm age"
+    
+    @new_modal_user = User.new
+    
     render 'twitter_confirm_age'
   end
   
@@ -77,11 +80,13 @@ class SessionsController < ApplicationController
   
   # classic account methods
   def login
+    @new_modal_user = User.new
     @title = "Log in"
   end
   
   def choose_signup
     @title = "Sign up"
+    @new_modal_user = User.new    
   end
   
   def attempt_login

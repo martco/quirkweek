@@ -8,9 +8,9 @@
           -unless current_user
             %ul.nav.secondary-nav
               %li
-                =link_to "Sign Up", choose_signup_path
+                =link_to "Sign Up", choose_signup_path, :id => "choose-signup-link"
               %li
-                =link_to "Log In", login_path
+                =link_to "Log In", login_path, :id => "login-link"
                 
           -if current_user
             %ul.nav.secondary-nav
@@ -23,3 +23,8 @@
             %p.pull-right
               Logged in as
               =link_to "#{current_user.name}", "#"
+
+
+/modals
+
+=render 'partials/modals'  # renders 3 modals: choose-signup-modal, login-modal and create-account-modal

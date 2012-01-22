@@ -5,8 +5,10 @@ class MissionsController < ApplicationController
     @user           = User.first       #manually created
     @quirks         = UsersMission.limit(10)
     @featured_quirk = @quirks.first
-    @title          = "quirk it!"
+    @title          = "Quirk it!"
     @comment        = Comment.new
+    
+    @new_modal_user = User.new
   end
   
 end

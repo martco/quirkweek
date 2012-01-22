@@ -1,0 +1,135 @@
+
+#choose-signup-modal.modal.hide.fade
+  .modal-body
+    %h1.text-center
+      Choose your signup!
+
+    .row{:style => "padding:10px 0px 30px 0px;"}
+      %h6.text-center
+        Sign in using social accounts
+
+    .row
+      / facebook & twitter row
+      .row
+        .span4{:style => "padding-left:50px;"}
+          =link_to image_tag("/assets/connect_fb_sm.png", :size => "200x26"), "/auth/facebook"
+        .span1{:style => "margin:-3px 20px 0px 20px;"}
+          %h3
+            or
+        =link_to image_tag("/assets/sign_in_twitter.png", :size => "142x28"), "/auth/twitter"
+
+
+    / Create your account row
+    %section{:style => "margin-top:40px;"}
+      .page-header
+
+    .row{:style => "padding-top:15px;"}
+      %h6.text-center
+        Sign in by creating an account
+
+    .row.text-center{:style => "padding:20px 0px 40px 0px;"}
+      =link_to "Create an account on Quirkweek", signup_path, {:class => "btn success large", :id => "new-account-link"}
+      // new-account-link id is a trigger for create account modal
+
+
+
+// login modal
+
+#login-modal.modal.hide.fade
+  .modal-body
+    %h1.text-center
+      Login
+
+    .row{:style => "padding:10px 0px;"}
+      %h6.text-center
+        with username & password
+
+    .row
+      .span12{:style => "padding: 0px 0px 0px 10px;"}
+        =form_tag :controller => 'sessions', :action => 'attempt_login' do
+          %fieldset
+            .clearfix
+              =label_tag :username
+              .input
+                =text_field_tag :username
+        
+            .clearfix
+              =label_tag :password
+              .input
+                =password_field_tag :password
+
+            .clearfix
+              .row
+                .offset3{:style => "padding-left:35px"}
+                  =submit_tag "Login", {:class => "btn"}
+
+
+    .row{:style => "padding-top:20px;"}
+      %h6.text-center
+        or login with social account
+      .text-center
+        %i
+          (just click on an icon)
+    
+    .row.text-center{:style => "padding:30px 0px;"}
+      =link_to image_tag("/assets/facebook_64.png"), "/auth/facebook"
+      &nbsp;  &nbsp;    &nbsp;    &nbsp;
+      =link_to image_tag("/assets/twitter_64.png"), "/auth/twitter"
+  
+
+
+// create account modal
+
+-if !signed_in?  
+  // create account is not showed when a user is signed-in ( no need to add @new_modal_user to controller )
+
+  #create-account-modal.modal.hide.fade
+    .modal-body
+      %h1.text-center
+        Create an account!
+
+      .row
+        .span12
+          =form_for @new_modal_user, :url => signup_path do |f|
+            %fieldset
+
+              .clearfix
+                =label :username, "Username"
+                .input
+                  =f.text_field :username
+
+              .clearfix
+                =label :email, "E-mail"
+                .input
+                  =f.text_field :email
+
+              .clearfix
+                =label :birthdate, "Birthdate"
+                .input.birthdate-select
+                  =f.date_select :birthdate, :start_year => Time.now.year, :end_year => (Time.now.year - 60), :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }              
+                  / Exclamation mark shows up if one of the fields is not selected (jquery)
+                  %span#js-bang-birthdate  
+                    &nbsp;!
+
+              .clearfix
+                =label :password, "Password"
+                .input
+                  =f.password_field :password
+        
+              .clearfix
+                =label :password_confirmation, "Confirm password"
+                .input
+                  =f.password_field :password_confirmation
+        
+              .clearfix
+                .row
+                  .offset3
+                    =f.submit "Create account", {:id => "new-user-button", :class => "btn"}
+              
+      .row{:style => 'padding:30px 0px 0px 50px;'}
+        By clicking 'Create account' you agree to
+        %span<
+          =link_to "Quirkweek terms and conditions", "#"
+          ="."
+
+
